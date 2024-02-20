@@ -21,7 +21,7 @@ export class SeederService implements OnModuleInit {
     }
 
     for (const user of USERS) {
-      await this.usersService.create(user);
+      await this.usersService.create(user as any); // TODO check any
     }
   }
 }
