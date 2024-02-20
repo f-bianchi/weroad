@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import * as Joi from 'joi';
@@ -49,7 +47,7 @@ import { User } from './users/entities/user.entity';
     SeederModule,
     RolesModule,
   ],
-  controllers: [AppController],
-  providers: [AppService, SeederService],
+  controllers: [],
+  providers: [SeederService],
 })
 export class AppModule {}
