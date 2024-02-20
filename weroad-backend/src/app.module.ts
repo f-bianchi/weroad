@@ -10,6 +10,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { RolesModule } from './roles/roles.module';
 import { Role } from './roles/entities/role.entity';
 import { User } from './users/entities/user.entity';
+import { TravelsModule } from './travels/travels.module';
 
 @Module({
   imports: [
@@ -46,6 +47,7 @@ import { User } from './users/entities/user.entity';
     UsersModule,
     SeederModule,
     RolesModule,
+    TravelsModule,
   ],
   controllers: [],
   providers: [SeederService],

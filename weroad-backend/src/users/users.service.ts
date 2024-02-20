@@ -13,7 +13,7 @@ export class UsersService {
     private readonly usersRepository: Repository<User>,
     @InjectRepository(Role)
     private readonly rolesRepository: Repository<Role>,
-  ) {}
+  ) { }
 
   async findOneById(id: string): Promise<User | null> {
     return this.usersRepository.findOne({
@@ -44,7 +44,7 @@ export class UsersService {
   }
 
   async create(userDto: UserDto): Promise<User> {
-    return await this.saveUser(userDto.id, userDto);
+    return await this.saveUser(userDto);
   }
 
   async remove(id: string): Promise<void> {
@@ -52,10 +52,11 @@ export class UsersService {
   }
 
   async update(id: string, userDto: UserDto): Promise<User> {
-    return await this.saveUser(id, userDto);
+    userDto.id = id;
+    return await this.saveUser(userDto);
   }
 
-  private async saveUser(id: string, dto: UserDto): Promise<User> {
+  private async saveUser(dto: UserDto): Promise<User> {
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(dto.password, salt);
 
@@ -66,7 +67,7 @@ export class UsersService {
     });
 
     const newUser = this.usersRepository.create({
-      id,
+      id: dto.id,
       password: hashedPassword,
       email: dto.email,
       roles,
