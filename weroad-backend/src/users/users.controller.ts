@@ -1,17 +1,19 @@
 import {
-  Controller,
-  Post,
   Body,
-  UseGuards,
+  Controller,
   Delete,
-  Param,
+  Get,
   HttpCode,
   HttpStatus,
+  Param,
+  Post,
+  Put,
+  UseGuards,
 } from '@nestjs/common';
-import { UsersService } from './users.service';
-import { CreateUserDto } from './dto/create-user.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { AdminGuard } from 'src/roles/roles.guard';
+import { UserDto } from './dto/user.dto';
+import { UsersService } from './users.service';
 
 @Controller('users')
 export class UsersController {
@@ -19,8 +21,8 @@ export class UsersController {
 
   @UseGuards(AuthGuard, AdminGuard)
   @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
+  create(@Body() userDto: UserDto) {
+    return this.usersService.create(userDto);
   }
 
   // @Get()
@@ -28,15 +30,15 @@ export class UsersController {
   //   return this.usersService.findAll();
   // }
 
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.usersService.findOne(+id);
-  // }
+  @Get(':id')
+  findById(@Param('id') id: string) {
+    return this.usersService.findOneById(id);
+  }
 
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-  //   return this.usersService.update(+id, updateUserDto);
-  // }
+  @Put(':id')
+  update(@Param('id') id: string, @Body() userDto: UserDto) {
+    return this.usersService.update(id, userDto);
+  }
 
   @HttpCode(HttpStatus.OK)
   @Delete(':id')

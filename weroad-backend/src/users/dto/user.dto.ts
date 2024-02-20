@@ -1,7 +1,7 @@
 import { IsArray, IsEmail, IsEnum, IsNotEmpty } from 'class-validator';
 import { RoleName } from 'src/roles/entities/role.entity';
 
-export class CreateUserDto {
+export class UserDto {
   id?: string;
 
   @IsEmail()
