@@ -25,21 +25,25 @@ export class UsersController {
     return this.usersService.create(userDto);
   }
 
-  // @Get()
-  // findAll() {
-  //   return this.usersService.findAll();
-  // }
+  @UseGuards(AuthGuard, AdminGuard)
+  @Get()
+  findAll() {
+    return this.usersService.findAll();
+  }
 
+  @UseGuards(AuthGuard, AdminGuard)
   @Get(':id')
   findById(@Param('id') id: string) {
     return this.usersService.findOneById(id);
   }
 
+  @UseGuards(AuthGuard, AdminGuard)
   @Put(':id')
   update(@Param('id') id: string, @Body() userDto: UserDto) {
     return this.usersService.update(id, userDto);
   }
 
+  @UseGuards(AuthGuard, AdminGuard)
   @HttpCode(HttpStatus.OK)
   @Delete(':id')
   remove(@Param('id') id: string) {
