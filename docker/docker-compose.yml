@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:alpine
+    restart: always
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  db_test:
+    image: postgres:alpine
+    restart: always
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5433:5432"
+    volumes:
+      - db_test_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:
+  db_test_data:
