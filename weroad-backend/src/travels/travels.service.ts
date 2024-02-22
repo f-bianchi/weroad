@@ -1,9 +1,12 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import {
+  PaginationRequestDto,
+  PaginationResponseDto,
+} from 'src/utils/paginated-response.dto';
 import { Repository } from 'typeorm';
 import { TravelDto } from './dto/travel.dto';
 import { Travel } from './entities/travel.entity';
-import { PaginatedResponse } from 'src/utils/paginated-response.dto';
 
 @Injectable()
 export class TravelsService {
@@ -17,9 +20,9 @@ export class TravelsService {
   }
 
   async findAllPublic(
-    page: number,
-    pageSize: number,
-  ): Promise<PaginatedResponse<Travel>> {
+    dto: PaginationRequestDto,
+  ): Promise<PaginationResponseDto<Travel>> {
+    const { page, pageSize } = dto;
     const [items, total] = await this.travelsRepository.findAndCount({
       where: { isPublic: true },
       take: pageSize,
@@ -35,12 +38,16 @@ export class TravelsService {
   }
 
   async findOnePublic(slug: string) {
-    return await this.travelsRepository.findOne({
+    const travel = await this.travelsRepository.findOne({
       where: { slug, isPublic: true },
       relations: {
         tours: true,
       },
     });
+    if (!travel) {
+      throw new NotFoundException();
+    }
+    return travel;
   }
 
   /* ADMIN */
@@ -54,12 +61,16 @@ export class TravelsService {
   }
 
   async findOne(id: string) {
-    return await this.travelsRepository.findOne({
+    const travel = await this.travelsRepository.findOne({
       where: { id },
       relations: {
         tours: true,
       },
     });
+    if (!travel) {
+      throw new NotFoundException();
+    }
+    return travel;
   }
 
   async update(id: string, dto: TravelDto) {

@@ -19,7 +19,7 @@ import { User } from './entities/user.entity';
 @Controller('admin/users')
 @UseGuards(AuthGuard, AdminGuard)
 export class UsersController {
-  constructor(private readonly usersService: UsersService) { }
+  constructor(private readonly usersService: UsersService) {}
 
   @Post()
   create(@Body() userDto: UserDto): Promise<User> {

@@ -11,10 +11,10 @@ export class Tour extends BaseEntity {
   name: string;
 
   @Column({ type: 'date' })
-  startingDate: Date;
+  startingDate: string;
 
   @Column({ type: 'date' })
-  endingDate: Date;
+  endingDate: string;
 
   @Column()
   price: number;

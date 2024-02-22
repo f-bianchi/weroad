@@ -25,6 +25,7 @@ import { ToursModule } from './tours/tours.module';
         POSTGRES_PASSWORD: Joi.string().required(),
         POSTGRES_DATABASE: Joi.string().required(),
         JWT_SECRET: Joi.string().required(),
+        ENABLE_IMPORT_MOCK_DATA: Joi.boolean(),
       }),
     }),
     TypeOrmModule.forRoot({

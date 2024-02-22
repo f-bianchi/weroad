@@ -12,7 +12,7 @@
       "culture": 30,
       "party": 10
     },
-    "isPublic": false
+    "isPublic": true
   },
   {
     "id": "4f4bd032-e7d4-402a-bdf6-aaf6be240d53",
@@ -27,13 +27,13 @@
       "culture": 20,
       "party": 10
     },
-    "isPublic": false
+    "isPublic": true
   },
   {
     "id": "cbf304ae-a335-43fa-9e56-811612dcb601",
     "slug": "united-arab-emirates",
     "name": "United Arab Emirates: from Dubai to Abu Dhabi",
-    "description": "At Dubai and Abu Dhabi everything is huge and majestic: here futuristic engineering works and modern infrastructures meet historical districts, local souks (typical bazars), desert and the sea. In this tour we’ll discover Dubai, where we’ll get on top of the highest skyscraper ever built, the Burj Khalifa. We’ll then take a walk at the Dubai Mall, the biggest mall on the planet, and we’ll spend a night in the desert, with the sight of the skyline on the horizon keeping us company. Then, it will be Abu Dhabi’s tourn! Sheik Zayed’s Grand Mosque’s white marble awaits for us to remain stoked in front of its wonderfulness, and the sea will invade us with peacefulness. UAE are all to discover, we’ll just get a taste of it, but we guarantee you’ll get quite the idea!",
+    "description": "At Dubai and Abu Dhabi everything is huge and majestic: here futuristic engineering works and modern infrastructures meet historical districts, local souks (typical bazars), desert and the sea. In this tour we'll discover Dubai, where we'll get on top of the highest skyscraper ever built, the Burj Khalifa. We'll then take a walk at the Dubai Mall, the biggest mall on the planet, and we'll spend a night in the desert, with the sight of the skyline on the horizon keeping us company. Then, it will be Abu Dhabi's tourn! Sheik Zayed's Grand Mosque's white marble awaits for us to remain stoked in front of its wonderfulness, and the sea will invade us with peacefulness. UAE are all to discover, we'll just get a taste of it, but we guarantee you'll get quite the idea!",
     "numberOfDays": 7,
     "moods": {
       "nature": 30,
@@ -42,6 +42,6 @@
       "culture": 80,
       "party": 70
     },
-    "isPublic": false
+    "isPublic": true
   }
 ]

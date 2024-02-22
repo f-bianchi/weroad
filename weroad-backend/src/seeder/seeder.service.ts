@@ -19,7 +19,9 @@ export class SeederService implements OnModuleInit {
   ) {}
 
   async onModuleInit() {
-    await this.initData();
+    if (process.env.ENABLE_IMPORT_MOCK_DATA === 'true') {
+      await this.initData();
+    }
   }
 
   async initData() {
@@ -32,7 +34,6 @@ export class SeederService implements OnModuleInit {
     }
 
     for (const travel of TRAVELS) {
-      travel.isPublic = false;
       await this.travelsService.create(travel);
     }
 

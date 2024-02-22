@@ -11,10 +11,10 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { AdminGuard, EditorGuard } from 'src/roles/roles.guard';
+import { PaginationResponseDto } from 'src/utils/paginated-response.dto';
 import { TravelDto } from './dto/travel.dto';
-import { TravelsService } from './travels.service';
-import { PaginatedResponse } from 'src/utils/paginated-response.dto';
 import { Travel } from './entities/travel.entity';
+import { TravelsService } from './travels.service';
 
 @Controller()
 export class TravelsController {
@@ -24,12 +24,12 @@ export class TravelsController {
   findAllPublic(
     @Query('page') page = 1,
     @Query('page') pageSize = 10,
-  ): Promise<PaginatedResponse<Travel>> {
-    return this.travelsService.findAllPublic(page, pageSize);
+  ): Promise<PaginationResponseDto<Travel>> {
+    return this.travelsService.findAllPublic({ page, pageSize });
   }
 
   @Get('travels/:slug')
-  findOneSlug(@Param('slug') slug: string) {
+  findOneSlug(@Param('slug') slug: string): Promise<Travel> {
     return this.travelsService.findOnePublic(slug);
   }
 
@@ -43,25 +43,25 @@ export class TravelsController {
 
   @Get('admin/travels/:id')
   @UseGuards(AuthGuard, EditorGuard)
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: string): Promise<Travel> {
     return this.travelsService.findOne(id);
   }
 
   @UseGuards(AuthGuard, AdminGuard)
   @Post('admin/travels')
-  create(@Body() createTravelDto: TravelDto) {
+  create(@Body() createTravelDto: TravelDto): Promise<Travel> {
     return this.travelsService.create(createTravelDto);
   }
 
   @UseGuards(AuthGuard, AdminGuard)
   @Put('admin/travels/:id')
-  update(@Param('id') id: string, @Body() dto: TravelDto) {
+  update(@Param('id') id: string, @Body() dto: TravelDto): Promise<Travel> {
     return this.travelsService.update(id, dto);
   }
 
   @UseGuards(AuthGuard, AdminGuard)
   @Delete('admin/travels/:id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: string): Promise<void> {
     return this.travelsService.remove(id);
   }
 }

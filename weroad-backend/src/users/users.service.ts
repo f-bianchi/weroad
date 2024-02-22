@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
 import { Role } from 'src/roles/entities/role.entity';
@@ -16,13 +16,17 @@ export class UsersService {
   ) {}
 
   async findOneById(id: string): Promise<User | null> {
-    return await this.usersRepository.findOne({
+    const user = await this.usersRepository.findOne({
       select: ['email', 'roles', 'id'],
       where: { id },
       relations: {
         roles: true,
       },
     });
+    if (!user) {
+      throw new NotFoundException();
+    }
+    return user;
   }
 
   async findAll(): Promise<User[]> {
