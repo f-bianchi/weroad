@@ -1,34 +1,67 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
+import { AuthGuard } from 'src/auth/auth.guard';
+import { AdminGuard, EditorGuard } from 'src/roles/roles.guard';
+import { TravelDto } from './dto/travel.dto';
 import { TravelsService } from './travels.service';
-import { CreateTravelDto } from './dto/create-travel.dto';
-import { UpdateTravelDto } from './dto/update-travel.dto';
+import { PaginatedResponse } from 'src/utils/paginated-response.dto';
+import { Travel } from './entities/travel.entity';
 
-@Controller('travels')
+@Controller()
 export class TravelsController {
   constructor(private readonly travelsService: TravelsService) {}
 
-  @Post()
-  create(@Body() createTravelDto: CreateTravelDto) {
-    return this.travelsService.create(createTravelDto);
+  @Get('travels')
+  findAllPublic(
+    @Query('page') page = 1,
+    @Query('page') pageSize = 10,
+  ): Promise<PaginatedResponse<Travel>> {
+    return this.travelsService.findAllPublic(page, pageSize);
   }
 
-  @Get()
+  @Get('travels/:slug')
+  findOneSlug(@Param('slug') slug: string) {
+    return this.travelsService.findOnePublic(slug);
+  }
+
+  /* ADMIN */
+
+  @Get('admin/travels')
+  @UseGuards(AuthGuard, EditorGuard)
   findAll() {
     return this.travelsService.findAll();
   }
 
-  @Get(':id')
+  @Get('admin/travels/:id')
+  @UseGuards(AuthGuard, EditorGuard)
   findOne(@Param('id') id: string) {
-    return this.travelsService.findOne(+id);
+    return this.travelsService.findOne(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTravelDto: UpdateTravelDto) {
-    return this.travelsService.update(+id, updateTravelDto);
+  @UseGuards(AuthGuard, AdminGuard)
+  @Post('admin/travels')
+  create(@Body() createTravelDto: TravelDto) {
+    return this.travelsService.create(createTravelDto);
   }
 
-  @Delete(':id')
+  @UseGuards(AuthGuard, AdminGuard)
+  @Put('admin/travels/:id')
+  update(@Param('id') id: string, @Body() dto: TravelDto) {
+    return this.travelsService.update(id, dto);
+  }
+
+  @UseGuards(AuthGuard, AdminGuard)
+  @Delete('admin/travels/:id')
   remove(@Param('id') id: string) {
-    return this.travelsService.remove(+id);
+    return this.travelsService.remove(id);
   }
 }

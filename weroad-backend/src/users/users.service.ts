@@ -13,10 +13,10 @@ export class UsersService {
     private readonly usersRepository: Repository<User>,
     @InjectRepository(Role)
     private readonly rolesRepository: Repository<Role>,
-  ) { }
+  ) {}
 
   async findOneById(id: string): Promise<User | null> {
-    return this.usersRepository.findOne({
+    return await this.usersRepository.findOne({
       select: ['email', 'roles', 'id'],
       where: { id },
       relations: {
@@ -25,17 +25,8 @@ export class UsersService {
     });
   }
 
-  async findOneByEmail(email: string): Promise<User | null> {
-    return this.usersRepository.findOne({
-      where: { email },
-      relations: {
-        roles: true,
-      },
-    });
-  }
-
   async findAll(): Promise<User[]> {
-    return this.usersRepository.find({
+    return await this.usersRepository.find({
       select: ['email', 'roles', 'id'],
       relations: {
         roles: true,
@@ -54,6 +45,15 @@ export class UsersService {
   async update(id: string, userDto: UserDto): Promise<User> {
     userDto.id = id;
     return await this.saveUser(userDto);
+  }
+
+  async findOneByEmail(email: string): Promise<User | null> {
+    return await this.usersRepository.findOne({
+      where: { email },
+      relations: {
+        roles: true,
+      },
+    });
   }
 
   private async saveUser(dto: UserDto): Promise<User> {

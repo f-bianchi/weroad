@@ -8,9 +8,8 @@ import { SeederService } from './seeder/seeder.service';
 import { SeederModule } from './seeder/seeder.module';
 import { JwtModule } from '@nestjs/jwt';
 import { RolesModule } from './roles/roles.module';
-import { Role } from './roles/entities/role.entity';
-import { User } from './users/entities/user.entity';
 import { TravelsModule } from './travels/travels.module';
+import { ToursModule } from './tours/tours.module';
 
 @Module({
   imports: [
@@ -35,7 +34,7 @@ import { TravelsModule } from './travels/travels.module';
       username: process.env.POSTGRES_USERNAME,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DATABASE,
-      entities: [User, Role],
+      entities: [__dirname + '/../**/*.entity.js'],
       synchronize: true,
     }),
     JwtModule.register({
@@ -48,6 +47,7 @@ import { TravelsModule } from './travels/travels.module';
     SeederModule,
     RolesModule,
     TravelsModule,
+    ToursModule,
   ],
   controllers: [],
   providers: [SeederService],

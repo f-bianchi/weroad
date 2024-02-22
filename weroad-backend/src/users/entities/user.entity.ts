@@ -1,4 +1,5 @@
 import { Role } from 'src/roles/entities/role.entity';
+import { BaseEntity } from 'src/utils/base.entity';
 import {
   Entity,
   Column,
@@ -7,8 +8,8 @@ import {
   JoinTable,
 } from 'typeorm';
 
-@Entity()
-export class User {
+@Entity({ name: 'users' })
+export class User extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

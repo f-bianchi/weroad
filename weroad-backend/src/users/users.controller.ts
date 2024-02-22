@@ -14,39 +14,36 @@ import { AuthGuard } from 'src/auth/auth.guard';
 import { AdminGuard } from 'src/roles/roles.guard';
 import { UserDto } from './dto/user.dto';
 import { UsersService } from './users.service';
+import { User } from './entities/user.entity';
 
-@Controller('users')
+@Controller('admin/users')
+@UseGuards(AuthGuard, AdminGuard)
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(private readonly usersService: UsersService) { }
 
-  @UseGuards(AuthGuard, AdminGuard)
   @Post()
-  create(@Body() userDto: UserDto) {
+  create(@Body() userDto: UserDto): Promise<User> {
     return this.usersService.create(userDto);
   }
 
-  @UseGuards(AuthGuard, AdminGuard)
   @Get()
-  findAll() {
+  findAll(): Promise<User[]> {
     return this.usersService.findAll();
   }
 
-  @UseGuards(AuthGuard, AdminGuard)
   @Get(':id')
-  findById(@Param('id') id: string) {
+  findById(@Param('id') id: string): Promise<User> {
     return this.usersService.findOneById(id);
   }
 
-  @UseGuards(AuthGuard, AdminGuard)
   @Put(':id')
-  update(@Param('id') id: string, @Body() userDto: UserDto) {
+  update(@Param('id') id: string, @Body() userDto: UserDto): Promise<User> {
     return this.usersService.update(id, userDto);
   }
 
-  @UseGuards(AuthGuard, AdminGuard)
   @HttpCode(HttpStatus.OK)
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: string): Promise<void> {
     return this.usersService.remove(id);
   }
 }
