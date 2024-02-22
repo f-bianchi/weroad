@@ -1,5 +1,5 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import LoginView from '@/views/LoginView.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import LoginView from '@/views/LoginView.vue';
 import AboutView from '@/views/AboutView.vue';
 
 const router = createRouter({
@@ -15,7 +15,20 @@ const router = createRouter({
       name: 'login',
       component: LoginView
     },
+    {
+      path: '/admin',
+      name: 'admin',
+      beforeEnter: async (to, from, next) => {
+        try {
+          console.log('todo call me')
+          next();
+        } catch (err) {
+          console.log(err);
+        }
+      },
+      children: []
+    }
   ]
-})
+});
 
-export default router
+export default router;
