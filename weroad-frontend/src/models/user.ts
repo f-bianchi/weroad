@@ -1,12 +1,13 @@
 export interface User {
-  email: string
-  roles: Role[]
-  image: string
+  id? : string;
+  email: string;
+  roles: Role[];
+  image?: string;
 }
 
 export interface Role {
-  name: RoleName
-  id: string
+  name: RoleName;
+  id: string;
 }
 
 export enum RoleName {

@@ -2,8 +2,8 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
 import { Role } from 'src/roles/entities/role.entity';
-import { In, Repository } from 'typeorm';
-import { UserDto } from './dto/user.dto';
+import { DeepPartial, In, Repository } from 'typeorm';
+import { UserDto, UserUpdateDto } from './dto/user.dto';
 import { User } from './entities/user.entity';
 
 @Injectable()
@@ -46,7 +46,7 @@ export class UsersService {
     await this.usersRepository.delete(id);
   }
 
-  async update(id: string, userDto: UserDto): Promise<User> {
+  async update(id: string, userDto: UserUpdateDto): Promise<User> {
     userDto.id = id;
     return await this.saveUser(userDto);
   }
@@ -60,22 +60,26 @@ export class UsersService {
     });
   }
 
-  private async saveUser(dto: UserDto): Promise<User> {
-    const salt = await bcrypt.genSalt();
-    const hashedPassword = await bcrypt.hash(dto.password, salt);
-
+  private async saveUser(dto: UserDto | UserUpdateDto): Promise<User> {
     const roles = await this.rolesRepository.find({
       where: {
         name: In(dto.roles),
       },
     });
 
-    const newUser = this.usersRepository.create({
+    const entityToCreate: DeepPartial<User> = {
       id: dto.id,
-      password: hashedPassword,
       email: dto.email,
       roles,
-    });
+    };
+
+    if (dto.password) {
+      const salt = await bcrypt.genSalt();
+      const hashedPassword = await bcrypt.hash(dto.password, salt);
+      entityToCreate.password = hashedPassword;
+    }
+
+    const newUser = this.usersRepository.create(entityToCreate);
 
     return await this.usersRepository.save(newUser);
   }
