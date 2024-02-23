@@ -1,9 +1,10 @@
-import { createRouter, createWebHistory } from 'vue-router';
-import LoginView from '@/views/LoginView.vue';
-import AboutView from '@/views/AboutView.vue';
-import AdminView from '@/views/AdminView.vue';
-import AdminUsersView from '@/views/AdminUsersView.vue';
-import AdminTravelsView from '@/views/AdminTravelsView.vue';
+import { createRouter, createWebHistory } from 'vue-router'
+import LoginView from '@/views/LoginView.vue'
+import AboutView from '@/views/AboutView.vue'
+import AdminView from '@/views/AdminView.vue'
+import AdminUsersView from '@/views/AdminUsersView.vue'
+import AdminTravelsView from '@/views/AdminTravelsView.vue'
+import { store } from '@/store'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -20,24 +21,32 @@ const router = createRouter({
       path: '/admin',
       component: AdminView,
       beforeEnter: async (to, from, next) => {
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('token')
         if (!token) {
-          return next('/login');
+          return next('/login')
         }
-        next();
+        next()
       },
       children: [
         {
+          path: '',
+          redirect: '/admin/travels'
+        },
+        {
           path: 'users',
-          component: AdminUsersView,
+          component: AdminUsersView
         },
         {
           path: 'travels',
-          component: AdminTravelsView,
+          component: AdminTravelsView
         }
       ]
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      redirect: '/'
     }
   ]
-});
+})
 
-export default router;
+export default router

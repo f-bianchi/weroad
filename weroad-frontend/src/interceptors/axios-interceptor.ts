@@ -1,19 +1,31 @@
-import baseAxios from 'axios';
-import router from '@/router'; // Import your Vue Router instance
+import baseAxios from 'axios'
+import { store } from '@/store'
 
 const axios = baseAxios.create({
-  baseURL: import.meta.env.VITE_API_URL,
-});
+  baseURL: import.meta.env.VITE_API_URL
+})
+
+axios.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('token')
+    // Exclude token for login endpoint
+    if (config.url !== '/login' && token) {
+      config.headers.Authorization = `Bearer ${token}`
+    }
+    return config
+  },
+  (error) => Promise.reject(error)
+)
 
 axios.interceptors.response.use(
-  response => response,
-  error => {
-    console.log('error', error)
-    if (error.response && error.response.status === 401) {
-      router.push('/login');
+  (response) => response,
+  (error) => {
+    const { status = 500 } = error.response || {}
+    if (status === 401 || status === 403) {
+      store.dispatch('logout')
     }
-    return Promise.reject(error);
+    return Promise.reject(error)
   }
-);
+)
 
-export default axios;
+export default axios

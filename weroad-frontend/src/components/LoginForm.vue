@@ -1,43 +1,41 @@
 <script setup lang="ts">
-import axios from '@/interceptors/axios-interceptor';
-import { reactive, ref } from 'vue';
-import SpinnerIcon from '@/components/SpinnerIcon.vue';
-import router from '@/router';
-import type { AxiosError } from 'axios';
+import { reactive, ref } from 'vue'
+import SpinnerIcon from '@/components/SpinnerIcon.vue'
+import router from '@/router'
+import { login } from '@/api/auth'
+import type { AxiosError } from 'axios'
 
 const form = reactive({
   email: '',
   password: ''
-});
+})
 
-const loading = ref(false);
-const errorMessage = ref('');
+const loading = ref(false)
+const errorMessage = ref('')
 
 const handleSubmit = async () => {
-  loading.value = true;
-  errorMessage.value = '';
+  loading.value = true
+  errorMessage.value = ''
 
   try {
-    const { data } = await axios.post<{ access_token: string; }>('/auth/login', {
-      email: form.email,
-      password: form.password,
-    });
-    localStorage.setItem('token', data.access_token);
-    router.push('/admin/travels');
+    const token = await login(form.email, form.password)
+    localStorage.setItem('token', token)
+    router.push('/admin/travels')
   } catch (err) {
-    const { response } = err as AxiosError;
-    errorMessage.value = (response?.data as any).message || 'Generic error';
+    const { response } = err as AxiosError
+    errorMessage.value = (response?.data as any).message || 'Generic error'
   } finally {
-    loading.value = false;
+    loading.value = false
   }
-};
-
+}
 </script>
 
 <template>
   <div class="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
     <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-      <img class="mx-auto h-10 w-auto" src="../assets/logo.png" alt="Your Company" />
+      <RouterLink to="/">
+        <img class="mx-auto h-10 w-auto" src="../assets/logo.png" alt="WeRoad" />
+      </RouterLink>
       <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
         Sign in to your account
       </h2>
@@ -49,8 +47,15 @@ const handleSubmit = async () => {
             Email address
           </label>
           <div class="mt-2">
-            <input id="email" name="email" type="email" autocomplete="email" required v-model.trim="form.email"
-              class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-rose-600 sm:text-sm sm:leading-6" />
+            <input
+              id="email"
+              name="email"
+              type="email"
+              autocomplete="email"
+              required
+              v-model.trim="form.email"
+              class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-rose-600 sm:text-sm sm:leading-6"
+            />
           </div>
         </div>
         <div>
@@ -60,14 +65,23 @@ const handleSubmit = async () => {
             </label>
           </div>
           <div class="mt-2">
-            <input id="password" name="password" type="password" autocomplete="current-password" required
+            <input
+              id="password"
+              name="password"
+              type="password"
+              autocomplete="current-password"
+              required
               v-model.trim="form.password"
-              class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-rose-600 sm:text-sm sm:leading-6" />
+              class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-rose-600 sm:text-sm sm:leading-6"
+            />
           </div>
         </div>
         <div>
-          <button type="submit" :disabled="loading"
-            class="items-center flex w-full justify-center rounded-md bg-rose-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-rose-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-600">
+          <button
+            type="submit"
+            :disabled="loading"
+            class="items-center flex w-full justify-center rounded-md bg-rose-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-rose-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-600"
+          >
             <SpinnerIcon v-if="loading" />
             Sign in
           </button>

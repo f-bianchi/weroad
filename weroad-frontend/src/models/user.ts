@@ -1,9 +1,15 @@
 export interface User {
-  email: string;
-  roles: Role[];
+  email: string
+  roles: Role[]
+  image: string
 }
 
 export interface Role {
-  name: string;
-  id: string;
+  name: RoleName
+  id: string
+}
+
+export enum RoleName {
+  Admin = 'admin',
+  Editor = 'editor'
 }
