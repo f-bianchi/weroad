@@ -1,32 +1,41 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import LoginView from '@/views/LoginView.vue';
 import AboutView from '@/views/AboutView.vue';
+import AdminView from '@/views/AdminView.vue';
+import AdminUsersView from '@/views/AdminUsersView.vue';
+import AdminTravelsView from '@/views/AdminTravelsView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: 'home',
       component: AboutView
     },
     {
       path: '/login',
-      name: 'login',
       component: LoginView
     },
     {
       path: '/admin',
-      name: 'admin',
+      component: AdminView,
       beforeEnter: async (to, from, next) => {
-        try {
-          console.log('todo call me')
-          next();
-        } catch (err) {
-          console.log(err);
+        const token = localStorage.getItem('token');
+        if (!token) {
+          return next('/login');
         }
+        next();
       },
-      children: []
+      children: [
+        {
+          path: 'users',
+          component: AdminUsersView,
+        },
+        {
+          path: 'travels',
+          component: AdminTravelsView,
+        }
+      ]
     }
   ]
 });

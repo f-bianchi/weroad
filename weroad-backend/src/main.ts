@@ -6,6 +6,7 @@ import { UniqueExceptionFilter } from './unique-exception.filter';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     logger: [process.env.LOG_LEVEL] as LogLevel[],
+    cors: true,
   });
 
   app.useGlobalPipes(new ValidationPipe());

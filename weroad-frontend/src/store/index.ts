@@ -6,11 +6,6 @@ export interface State {
   user?: User;
 }
 
-interface PayloadLogin {
-  user: User;
-  token: string;
-}
-
 export const key: InjectionKey<Store<State>> = Symbol();
 
 export const store = createStore<State>({
@@ -21,8 +16,7 @@ export const store = createStore<State>({
     },
   },
   actions: {
-    login({ commit }, { user, token }: PayloadLogin) {
-      localStorage.setItem('token', token);
+    login({ commit }, user: User) {
       commit('setUser', user);
     },
     logout({ commit }) {
