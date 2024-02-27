@@ -1,21 +1,21 @@
 <script setup lang="ts">
-import { getTour } from '@/api/tours'
+import { getTravel } from '@/api/travels'
 import SpinnerIcon from '@/components/SpinnerIcon.vue'
-import TourForm from '@/components/TourForm.vue'
-import type { Tour } from '@/models/tour'
+import TravelForm from '@/components/admin/TravelForm.vue'
+import type { Travel } from '@/models/travel'
 import { useStore } from '@/store'
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
+const travel = ref<Travel>()
 const route = useRoute()
-const tour = ref<Tour>()
-const loading = ref(false)
 const store = useStore()
+const loading = ref(false)
 
 onMounted(async () => {
   loading.value = true
   try {
-    tour.value = await getTour(route.params.id.toString())
+    travel.value = await getTravel(route.params.id.toString())
   } catch (err) {
     store.dispatch('showHttpError', err)
   } finally {
@@ -26,5 +26,5 @@ onMounted(async () => {
 
 <template>
   <SpinnerIcon v-if="loading" />
-  <TourForm v-if="tour" :tour="tour" :travel-id="route.params.travelId.toString()" />
+  <TravelForm v-if="travel" :travel="travel" />
 </template>

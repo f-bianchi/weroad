@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed, onMounted, reactive, ref } from 'vue'
 import router from '@/router'
-import ConfirmDialog from './ConfirmDialog.vue'
-import SpinnerIcon from './SpinnerIcon.vue'
+import ConfirmDialog from '@/components/ConfirmDialog.vue'
+import SpinnerIcon from '@/components/SpinnerIcon.vue'
 import { useStore } from '@/store'
 import { deleteTour, createTour, updateTour, type TourBody } from '@/api/tours'
 import { type Tour, formatDateForDB, formatDate } from '@/models/tour'

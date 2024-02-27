@@ -3,7 +3,7 @@ import { ref, onMounted, computed } from 'vue'
 import { getTours } from '@/api/tours'
 import { useStore } from '@/store'
 import { useRoute } from 'vue-router'
-import ToursList from '@/components/ToursList.vue'
+import ToursList from '@/components/admin/ToursList.vue'
 import type { Tour } from '@/models/tour'
 import SpinnerIcon from '@/components/SpinnerIcon.vue'
 

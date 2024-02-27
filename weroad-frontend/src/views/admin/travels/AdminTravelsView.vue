@@ -3,7 +3,7 @@ import type { Travel } from '@/models/travel'
 import { ref, onMounted } from 'vue'
 import { getTravels } from '@/api/travels'
 import { useStore } from '@/store'
-import TravelsList from '@/components/TravelsList.vue'
+import TravelsList from '@/components/admin/TravelsList.vue'
 
 const travels = ref<Travel[]>([])
 const store = useStore()

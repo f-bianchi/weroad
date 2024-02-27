@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import TravelForm from '@/components/TravelForm.vue'
+import TravelForm from '@/components/admin/TravelForm.vue'
 import type { Travel } from '@/models/travel'
 
 const travel: Travel = {

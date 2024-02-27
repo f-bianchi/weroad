@@ -11,8 +11,8 @@ import {
   ListboxOptions
 } from '@headlessui/vue'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/vue/20/solid'
-import ConfirmDialog from './ConfirmDialog.vue'
-import SpinnerIcon from './SpinnerIcon.vue'
+import ConfirmDialog from '@/components/ConfirmDialog.vue'
+import SpinnerIcon from '@/components/SpinnerIcon.vue'
 import { useStore } from '@/store'
 const ROLES = [RoleName.Admin, RoleName.Editor]
 

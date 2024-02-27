@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { getUsers } from '@/api/users'
-import UsersList from '@/components/UsersList.vue'
+import UsersList from '@/components/admin/UsersList.vue'
 import type { User } from '@/models/user'
 import { useStore } from '@/store'
 import { onMounted, ref } from 'vue'

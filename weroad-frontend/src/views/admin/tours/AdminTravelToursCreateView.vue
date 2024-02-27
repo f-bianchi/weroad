@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import TourForm from '@/components/TourForm.vue'
+import TourForm from '@/components/admin/TourForm.vue'
 import type { Tour } from '@/models/tour'
 import { useRoute } from 'vue-router'
 

@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { computed, onMounted } from 'vue'
 import { RouterView, useRoute } from 'vue-router'
-import MenuMobile from '@/components/MenuMobile.vue'
+import MenuMobile from '@/components/admin/MenuMobile.vue'
+import MenuDesktop from '@/components/admin/MenuDesktop.vue'
 import { RocketLaunchIcon, UsersIcon } from '@heroicons/vue/24/outline'
 import type { NavigationItem } from '@/models/navigation'
-import MenuDesktop from '@/components/MenuDesktop.vue'
 import { me } from '@/api/auth'
 import { useStore } from '@/store'
 

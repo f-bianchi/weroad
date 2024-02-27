@@ -2,7 +2,7 @@
 import { RouterLink } from 'vue-router'
 import type { NavigationItem } from '@/models/navigation'
 import type { User } from '@/models/user'
-import ConfirmDialog from './ConfirmDialog.vue'
+import ConfirmDialog from '@/components/ConfirmDialog.vue'
 import { store } from '@/store'
 
 defineProps<{

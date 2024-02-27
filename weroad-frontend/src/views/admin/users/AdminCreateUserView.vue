@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import UserForm from '@/components/UserForm.vue'
+import UserForm from '@/components/admin/UserForm.vue'
 import { RoleName, type User } from '@/models/user'
 
 const user: User = {
