@@ -17,10 +17,10 @@ class RoleGuard implements CanActivate {
 
 @Injectable()
 export class AdminGuard extends RoleGuard {
-  acceptedRoles: RoleName[] = [RoleName.Admin, RoleName.Editor];
+  acceptedRoles: RoleName[] = [RoleName.Admin];
 }
 
 @Injectable()
 export class EditorGuard extends RoleGuard {
-  acceptedRoles: RoleName[] = [RoleName.Editor];
+  acceptedRoles: RoleName[] = [RoleName.Admin, RoleName.Editor];
 }

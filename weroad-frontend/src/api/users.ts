@@ -1,7 +1,7 @@
 import axios from '@/interceptors/axios-interceptor';
 import type { User } from '@/models/user';
 
-interface UserBody {
+export interface UserBody {
   email: string,
   password: string,
   roles: string[];

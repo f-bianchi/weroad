@@ -1,27 +1,28 @@
 <script setup lang="ts">
 import { computed, onMounted, reactive, ref } from 'vue';
 import router from '@/router';
-import { createUser, deleteUser, updateUser } from '@/api/users';
+import { createUser, deleteUser, updateUser, type UserBody } from '@/api/users';
 import type { AxiosError } from 'axios';
 import { RoleName, type User } from '@/models/user';
 import { Listbox, ListboxButton, ListboxLabel, ListboxOption, ListboxOptions } from '@headlessui/vue';
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/vue/20/solid';
 import ConfirmDialog from './ConfirmDialog.vue';
 import SpinnerIcon from './SpinnerIcon.vue';
+import { useStore } from '@/store';
 const ROLES = [RoleName.Admin, RoleName.Editor];
 
 const props = defineProps<{
   user: User;
 }>();
 
-const form = reactive<{ email: string, password: string, roles: RoleName[]; }>({
+const form = reactive<UserBody>({
   email: '',
   password: '',
   roles: [],
 });
 
 const loading = ref(false);
-const errorMessage = ref('');
+const store = useStore();
 
 const isEditing = computed(() => !!props.user.id);
 
@@ -32,7 +33,6 @@ onMounted(async () => {
 
 const handleSubmit = async () => {
   loading.value = true;
-  errorMessage.value = '';
 
   try {
     if (isEditing.value) {
@@ -42,9 +42,7 @@ const handleSubmit = async () => {
     }
     router.replace('/admin/users');
   } catch (err) {
-    const { response } = err as AxiosError;
-    errorMessage.value = (response?.data as any).message || 'Generic error';
-    alert(errorMessage.value);
+    store.dispatch('showHttpError', err);
   } finally {
     loading.value = false;
   }
@@ -56,9 +54,7 @@ const removeUser = async () => {
     await deleteUser(props.user.id!);
     router.replace('/admin/users');
   } catch (err) {
-    const { response } = err as AxiosError;
-    errorMessage.value = (response?.data as any).message || 'Generic error';
-    alert(errorMessage.value);
+    store.dispatch('showHttpError', err)
   } finally {
     loading.value = false;
   }

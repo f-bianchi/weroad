@@ -1,7 +1,14 @@
-import { IsDate, IsNotEmpty, IsNumber, IsUUID } from 'class-validator';
+import {
+  IsDate,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsUUID,
+} from 'class-validator';
 
 export class TourDto {
   @IsUUID()
+  @IsOptional()
   id?: string;
 
   @IsNotEmpty()

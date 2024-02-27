@@ -1,7 +1,14 @@
-import { IsBoolean, IsNotEmpty, IsNumber, IsUUID } from 'class-validator';
+import {
+  IsBoolean,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsUUID,
+} from 'class-validator';
 
 export class TravelDto {
   @IsUUID()
+  @IsOptional()
   id?: string;
 
   @IsNotEmpty()

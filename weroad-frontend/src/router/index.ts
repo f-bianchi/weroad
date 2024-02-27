@@ -6,6 +6,8 @@ import AdminUsersView from '@/views/AdminUsersView.vue'
 import AdminTravelsView from '@/views/AdminTravelsView.vue'
 import AdminEditUserView from '@/views/AdminEditUserView.vue';
 import AdminCreateUserView from '@/views/AdminCreateUserView.vue';
+import AdminCreateTravelView from '@/views/AdminCreateTravelView.vue';
+import AdminEditTravelView from '@/views/AdminEditTravelView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -48,7 +50,15 @@ const router = createRouter({
         {
           path: 'travels',
           component: AdminTravelsView
-        }
+        },
+        {
+          path: 'travels/create',
+          component: AdminCreateTravelView,
+        },
+        {
+          path: 'travels/:id',
+          component: AdminEditTravelView
+        },
       ]
     },
     {

@@ -31,9 +31,9 @@ export class ToursController {
 
   /* ADMIN */
   @UseGuards(AuthGuard, EditorGuard)
-  @Get('admin/tours')
-  findAll(): Promise<Tour[]> {
-    return this.toursService.findAll();
+  @Get('admin/travels/:id/tours')
+  findAll(@Param('id') id: string): Promise<Tour[]> {
+    return this.toursService.findAll(id);
   }
 
   @UseGuards(AuthGuard, EditorGuard)

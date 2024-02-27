@@ -63,8 +63,14 @@ export class ToursService {
     return await this.saveTour(dto);
   }
 
-  async findAll() {
-    return await this.toursRepository.find();
+  async findAll(travelId: string): Promise<Tour[]> {
+    const travel = await this.travelsRepository.findOne({
+      where: { id: travelId },
+    });
+    if (!travel) {
+      return [];
+    }
+    return await this.toursRepository.find({ where: { travel } });
   }
 
   async findOne(id: string) {

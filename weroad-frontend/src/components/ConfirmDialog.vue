@@ -23,7 +23,7 @@ const toggle = () => (open.value = !open.value)
   <slot :toggle="toggle"></slot>
 
   <TransitionRoot as="template" :show="open">
-    <Dialog as="div" class="relative z-10" @close="open = false">
+    <Dialog as="div" class="relative z-50" @close="open = false">
       <TransitionChild
         as="template"
         enter="ease-out duration-300"
