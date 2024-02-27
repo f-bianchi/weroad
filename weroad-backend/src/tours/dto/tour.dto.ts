@@ -1,5 +1,5 @@
 import {
-  IsDate,
+  IsISO8601,
   IsNotEmpty,
   IsNumber,
   IsOptional,
@@ -15,11 +15,11 @@ export class TourDto {
   name: string;
 
   @IsNotEmpty()
-  @IsDate()
+  @IsISO8601()
   startingDate: string;
 
   @IsNotEmpty()
-  @IsDate()
+  @IsISO8601()
   endingDate: string;
 
   @IsNumber()

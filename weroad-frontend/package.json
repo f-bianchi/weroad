@@ -15,6 +15,7 @@
   "dependencies": {
     "@headlessui/vue": "^1.7.19",
     "@heroicons/vue": "^2.1.1",
+    "@vuepic/vue-datepicker": "^8.1.1",
     "axios": "^1.6.7",
     "slugify": "^1.6.6",
     "vue": "^3.4.15",

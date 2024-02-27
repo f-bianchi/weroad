@@ -26,7 +26,7 @@ const store = useStore()
 const isEditing = computed(() => !!props.travel.id)
 
 watch(form, () => {
-  form.numberOfNights = form.numberOfDays - 1
+  form.numberOfNights = form.numberOfDays > 1 ? form.numberOfDays - 1 : 0
 })
 
 onMounted(async () => {
@@ -146,7 +146,7 @@ const removeTravel = async () => {
               </div>
             </div>
 
-            <div class="sm:col-span-1">
+            <div class="sm:col-span-2">
               <label for="name" class="block text-sm font-medium leading-6 text-gray-900"
                 >Number of days *</label
               >
@@ -164,7 +164,7 @@ const removeTravel = async () => {
               </div>
             </div>
 
-            <div class="sm:col-span-1">
+            <div class="sm:col-span-2">
               <label for="slug" class="block text-sm font-medium leading-6 text-gray-900"
                 >Number of nights *</label
               >
@@ -186,7 +186,7 @@ const removeTravel = async () => {
 
           <div class="mt-12" v-if="isEditing">
             <ConfirmDialog
-              title="Logout"
+              title="Attention"
               message="Are you sure you want to remove this travel?"
               @confirm="removeTravel"
               v-slot="scope"

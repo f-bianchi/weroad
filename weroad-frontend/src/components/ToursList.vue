@@ -1,13 +1,9 @@
 <script setup lang="ts">
-import type { Tour } from '@/models/tour'
-import { useRoute } from 'vue-router'
-
-const route = useRoute()
-
-const travelId = route.params.id.toString()
+import { formatDate, formatPrice, type Tour } from '@/models/tour'
 
 defineProps<{
   tours: Tour[]
+  travelId: string
 }>()
 </script>
 
@@ -19,7 +15,7 @@ defineProps<{
       </div>
       <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
         <RouterLink
-          :to="`/admin/travels/${travelId}/create`"
+          :to="`/admin/travels/${travelId}/tours/create`"
           class="block rounded-md bg-rose-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-rose-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-600"
         >
           Add tour
@@ -59,19 +55,19 @@ defineProps<{
                     {{ tour.name }}
                   </td>
                   <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                    {{ tour.startingDate }}
+                    {{ formatDate(tour.startingDate) }}
                   </td>
                   <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                    {{ tour.endingDate }}
+                    {{ formatDate(tour.endingDate) }}
                   </td>
                   <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                    {{ tour.price }}
+                    {{ formatPrice(tour.price) }}
                   </td>
                   <td
                     class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6"
                   >
                     <RouterLink
-                      :to="`/admin/travels/${travelId}/${tour.id}`"
+                      :to="`/admin/travels/${travelId}/tours/${tour.id}`"
                       class="text-rose-600 hover:text-rose-900"
                     >
                       Edit

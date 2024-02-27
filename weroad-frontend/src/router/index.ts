@@ -8,8 +8,11 @@ import AdminEditUserView from '@/views/AdminEditUserView.vue'
 import AdminCreateUserView from '@/views/AdminCreateUserView.vue'
 import AdminCreateTravelView from '@/views/AdminCreateTravelView.vue'
 import AdminEditTravelView from '@/views/AdminEditTravelView.vue'
-import AdminTravelsToursView from '@/views/AdminTravelsToursView.vue'
-import AdminTravelsToursListView from '@/views/AdminTravelsToursListView.vue'
+import AdminTravelToursView from '@/views/AdminTravelToursView.vue'
+import AdminTravelToursListView from '@/views/AdminTravelToursListView.vue'
+import AdminTravelToursCreateView from '@/views/AdminTravelToursCreateView.vue'
+import AdminTravelToursEditView from '@/views/AdminTravelToursEditView.vue'
+import { store } from '@/store'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -62,19 +65,21 @@ const router = createRouter({
           component: AdminEditTravelView
         },
         {
-          path: 'travels/:id/tours',
-          component: AdminTravelsToursView,
+          path: 'travels/:travelId/tours',
+          component: AdminTravelToursView,
           children: [
             {
               path: '',
-              component: AdminTravelsToursListView
+              component: AdminTravelToursListView
+            },
+            {
+              path: 'create',
+              component: AdminTravelToursCreateView
+            },
+            {
+              path: ':id',
+              component: AdminTravelToursEditView
             }
-            // {
-            //   path: 'create'
-            // },
-            // {
-            //   path: ':id'
-            // }
           ]
         }
       ]

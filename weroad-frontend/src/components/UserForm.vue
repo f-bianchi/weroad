@@ -2,7 +2,6 @@
 import { computed, onMounted, reactive, ref } from 'vue'
 import router from '@/router'
 import { createUser, deleteUser, updateUser, type UserBody } from '@/api/users'
-import type { AxiosError } from 'axios'
 import { RoleName, type User } from '@/models/user'
 import {
   Listbox,
@@ -174,7 +173,7 @@ const removeUser = async () => {
 
           <div class="mt-12" v-if="isEditing">
             <ConfirmDialog
-              title="Logout"
+              title="Attention"
               message="Are you sure you want to remove this user?"
               @confirm="removeUser"
               v-slot="scope"

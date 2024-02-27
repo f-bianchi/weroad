@@ -1,7 +1,9 @@
 import axios from '@/interceptors/axios-interceptor'
 import type { Tour } from '@/models/tour'
 
-export interface TourBody {}
+export interface TourBody extends Tour {
+  travelId: string
+}
 
 export const getTours = async (travelId: string): Promise<Tour[]> => {
   const { data } = await axios.get<Tour[]>(`/admin/travels/${travelId}/tours`)

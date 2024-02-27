@@ -1,4 +1,4 @@
-import { IsDate, IsNumber, IsOptional, IsPositive } from 'class-validator';
+import { IsISO8601, IsNumber, IsOptional, IsPositive } from 'class-validator';
 import { PaginationRequestDto } from 'src/utils/paginated-response.dto';
 
 export class TourFiltersDto extends PaginationRequestDto {
@@ -12,11 +12,11 @@ export class TourFiltersDto extends PaginationRequestDto {
   @IsOptional()
   priceTo?: number;
 
-  @IsDate()
+  @IsISO8601()
   @IsOptional()
   startingDate?: string;
 
-  @IsDate()
+  @IsISO8601()
   @IsOptional()
   endingDate?: string;
 }
