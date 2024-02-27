@@ -4,10 +4,12 @@ import AboutView from '@/views/AboutView.vue'
 import AdminView from '@/views/AdminView.vue'
 import AdminUsersView from '@/views/AdminUsersView.vue'
 import AdminTravelsView from '@/views/AdminTravelsView.vue'
-import AdminEditUserView from '@/views/AdminEditUserView.vue';
-import AdminCreateUserView from '@/views/AdminCreateUserView.vue';
-import AdminCreateTravelView from '@/views/AdminCreateTravelView.vue';
-import AdminEditTravelView from '@/views/AdminEditTravelView.vue';
+import AdminEditUserView from '@/views/AdminEditUserView.vue'
+import AdminCreateUserView from '@/views/AdminCreateUserView.vue'
+import AdminCreateTravelView from '@/views/AdminCreateTravelView.vue'
+import AdminEditTravelView from '@/views/AdminEditTravelView.vue'
+import AdminTravelsToursView from '@/views/AdminTravelsToursView.vue'
+import AdminTravelsToursListView from '@/views/AdminTravelsToursListView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -53,12 +55,28 @@ const router = createRouter({
         },
         {
           path: 'travels/create',
-          component: AdminCreateTravelView,
+          component: AdminCreateTravelView
         },
         {
           path: 'travels/:id',
           component: AdminEditTravelView
         },
+        {
+          path: 'travels/:id/tours',
+          component: AdminTravelsToursView,
+          children: [
+            {
+              path: '',
+              component: AdminTravelsToursListView
+            }
+            // {
+            //   path: 'create'
+            // },
+            // {
+            //   path: ':id'
+            // }
+          ]
+        }
       ]
     },
     {

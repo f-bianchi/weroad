@@ -36,7 +36,7 @@ onMounted(async () => {
     const user = await me()
     store.dispatch('me', user)
   } catch (err) {
-    store.dispatch('showHttpError', err);
+    store.dispatch('showHttpError', err)
   }
 })
 

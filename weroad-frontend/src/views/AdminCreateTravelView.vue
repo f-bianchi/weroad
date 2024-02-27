@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import TravelForm from '@/components/TravelForm.vue';
-import type { Travel } from '@/models/travel';
+import TravelForm from '@/components/TravelForm.vue'
+import type { Travel } from '@/models/travel'
 
 const travel: Travel = {
   name: '',
@@ -9,9 +9,8 @@ const travel: Travel = {
   description: '',
   numberOfDays: 1,
   numberOfNights: 1,
-  tours: [],
-};
-
+  tours: []
+}
 </script>
 
 <template>

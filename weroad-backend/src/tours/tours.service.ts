@@ -10,6 +10,8 @@ import {
   PaginationResponseDto,
 } from 'src/utils/paginated-response.dto';
 import {
+  BeforeInsert,
+  BeforeUpdate,
   Between,
   FindOptionsOrder,
   FindOptionsWhere,
@@ -64,13 +66,9 @@ export class ToursService {
   }
 
   async findAll(travelId: string): Promise<Tour[]> {
-    const travel = await this.travelsRepository.findOne({
-      where: { id: travelId },
+    return await this.toursRepository.find({
+      where: { travel: { id: travelId } },
     });
-    if (!travel) {
-      return [];
-    }
-    return await this.toursRepository.find({ where: { travel } });
   }
 
   async findOne(id: string) {
