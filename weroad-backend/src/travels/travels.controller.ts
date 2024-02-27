@@ -23,7 +23,7 @@ export class TravelsController {
   @Get('travels')
   findAllPublic(
     @Query('page') page = 1,
-    @Query('page') pageSize = 10,
+    @Query('pageSize') pageSize = 10,
   ): Promise<PaginationResponseDto<Travel>> {
     return this.travelsService.findAllPublic({ page, pageSize });
   }

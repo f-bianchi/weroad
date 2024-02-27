@@ -10,3 +10,5 @@ export interface Travel {
   numberOfNights: number
   tours: Tour[]
 }
+
+export const TRAVEL_IMAGE_PREVIEW = 'https://source.unsplash.com/random/?'
