@@ -82,9 +82,9 @@ const removeTour = async () => {
 
           <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
             <div class="sm:col-span-3">
-              <label for="name" class="block text-sm font-medium leading-6 text-gray-900"
-                >Name *</label
-              >
+              <label for="name" class="block text-sm font-medium leading-6 text-gray-900">
+                Name *
+              </label>
               <div class="mt-2">
                 <input
                   type="text"
@@ -98,9 +98,9 @@ const removeTour = async () => {
             </div>
 
             <div class="sm:col-span-3">
-              <label for="name" class="block text-sm font-medium leading-6 text-gray-900"
-                >Price (in €) *</label
-              >
+              <label for="name" class="block text-sm font-medium leading-6 text-gray-900">
+                Price (in €) *
+              </label>
               <div class="mt-2">
                 <input
                   type="number"
@@ -115,9 +115,9 @@ const removeTour = async () => {
             </div>
 
             <div class="sm:col-span-3">
-              <label for="slug" class="block text-sm font-medium leading-6 text-gray-900"
-                >Dates *</label
-              >
+              <label for="slug" class="block text-sm font-medium leading-6 text-gray-900">
+                Dates *
+              </label>
               <div class="mt-2">
                 <VueDatePicker
                   required

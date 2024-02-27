@@ -77,9 +77,9 @@ const removeUser = async () => {
           <p v-if="isEditing" class="mt-1 text-sm text-gray-700">#{{ user.id }}</p>
 
           <div class="mt-8">
-            <label for="email" class="block text-sm font-medium leading-6 text-gray-900"
-              >Email *</label
-            >
+            <label for="email" class="block text-sm font-medium leading-6 text-gray-900">
+              Email *
+            </label>
             <div class="mt-2">
               <input
                 id="email"
@@ -112,9 +112,9 @@ const removeUser = async () => {
 
           <div class="mt-8">
             <Listbox as="div" v-model="form.roles" multiple>
-              <ListboxLabel class="block text-sm font-medium leading-6 text-gray-900"
-                >Roles *</ListboxLabel
-              >
+              <ListboxLabel class="block text-sm font-medium leading-6 text-gray-900">
+                Roles *
+              </ListboxLabel>
               <div class="relative mt-2">
                 <ListboxButton
                   class="relative w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-rose-600 sm:text-sm sm:leading-6"

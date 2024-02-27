@@ -80,13 +80,15 @@ const isAdmin = computed(() => store.getters.isAdmin)
                     <span
                       v-if="travel.isPublic"
                       class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20"
-                      >Public</span
                     >
+                      Public
+                    </span>
                     <span
                       v-else
                       class="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset"
-                      >Draft</span
                     >
+                      Draft
+                    </span>
                   </td>
                   <td
                     class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6"

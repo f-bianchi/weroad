@@ -91,17 +91,17 @@ const removeTravel = async () => {
                 />
               </div>
               <div class="text-sm leading-6">
-                <label for="comments" class="font-medium text-gray-900 cursor-pointer"
-                  >Public</label
-                >
+                <label for="comments" class="font-medium text-gray-900 cursor-pointer">
+                  Public
+                </label>
                 <p class="text-gray-500">Check to publish the travel.</p>
               </div>
             </div>
 
             <div class="sm:col-span-3">
-              <label for="name" class="block text-sm font-medium leading-6 text-gray-900"
-                >Name *</label
-              >
+              <label for="name" class="block text-sm font-medium leading-6 text-gray-900">
+                Name *
+              </label>
               <div class="mt-2">
                 <input
                   type="text"
@@ -115,9 +115,9 @@ const removeTravel = async () => {
             </div>
 
             <div class="sm:col-span-3">
-              <label for="slug" class="block text-sm font-medium leading-6 text-gray-900"
-                >Slug *</label
-              >
+              <label for="slug" class="block text-sm font-medium leading-6 text-gray-900">
+                Slug *
+              </label>
               <div class="mt-2">
                 <input
                   type="text"
@@ -131,9 +131,9 @@ const removeTravel = async () => {
             </div>
 
             <div class="col-span-full">
-              <label for="about" class="block text-sm font-medium leading-6 text-gray-900"
-                >Description *</label
-              >
+              <label for="about" class="block text-sm font-medium leading-6 text-gray-900">
+                Description *
+              </label>
               <div class="mt-2">
                 <textarea
                   id="about"
@@ -147,9 +147,9 @@ const removeTravel = async () => {
             </div>
 
             <div class="sm:col-span-2">
-              <label for="name" class="block text-sm font-medium leading-6 text-gray-900"
-                >Number of days *</label
-              >
+              <label for="name" class="block text-sm font-medium leading-6 text-gray-900">
+                Number of days *
+              </label>
               <div class="mt-2">
                 <input
                   type="number"
@@ -165,9 +165,9 @@ const removeTravel = async () => {
             </div>
 
             <div class="sm:col-span-2">
-              <label for="slug" class="block text-sm font-medium leading-6 text-gray-900"
-                >Number of nights *</label
-              >
+              <label for="slug" class="block text-sm font-medium leading-6 text-gray-900">
+                Number of nights *
+              </label>
               <div class="mt-2">
                 <input
                   type="number"
