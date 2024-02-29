@@ -12,13 +12,15 @@ export interface Travel {
   moods: Moods
 }
 
-export const MOODS_PROPS = ['nature', 'relax', 'history', 'culture', 'party']
+export type MoodsType = 'nature' | 'relax' | 'history' | 'culture' | 'party'
 
 export type Moods = {
-  [key in (typeof MOODS_PROPS)[number]]: number
+  [key in MoodsType]: number
 }
 
 export const TRAVEL_IMAGE_PREVIEW = 'https://source.unsplash.com/random/?'
+
+export const MOODS_PROPS: MoodsType[] = ['nature', 'relax', 'history', 'culture', 'party']
 
 export const INITIAL_MOODS: Moods = {
   nature: 50,

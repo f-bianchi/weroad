@@ -47,3 +47,8 @@ export const getPublicTravels = async (
   })
   return data
 }
+
+export const getPublicTravel = async (id: string): Promise<Travel> => {
+  const { data } = await axios.get<Travel>(`/travels/${id}`)
+  return data
+}

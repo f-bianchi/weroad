@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { formatPrice } from '@/utils/dates'
+import { getStartingPrice } from '@/utils/travel'
 import { type Travel, TRAVEL_IMAGE_PREVIEW } from '@/models/travel'
 import { computed } from 'vue'
 
@@ -7,10 +7,7 @@ const props = defineProps<{
   travel: Travel
 }>()
 
-const startingPrice = computed(() => {
-  const prices = (props.travel.tours || []).map((t) => t.price)
-  return formatPrice(Math.min(...prices))
-})
+const startingPrice = computed(() => getStartingPrice(props.travel))
 </script>
 
 <template>
@@ -33,7 +30,7 @@ const startingPrice = computed(() => {
         <svg viewBox="0 0 2 2" class="-ml-0.5 h-0.5 w-0.5 flex-none fill-white/50">
           <circle cx="1" cy="1" r="1" />
         </svg>
-        <div class="flex gap-x-2.5">Starting from {{ startingPrice }}</div>
+        <div class="flex gap-x-2.5">From {{ startingPrice }}</div>
       </div>
     </div>
     <h3 class="mt-3 text-lg font-semibold leading-6 text-white">

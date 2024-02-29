@@ -40,6 +40,7 @@ export class TravelsService {
     const travel = await this.travelsRepository.findOne({
       where: { slug, isPublic: true },
       relations: {
+        tours: true,
         moods: true,
       },
     });
@@ -79,13 +80,6 @@ export class TravelsService {
 
   async update(id: string, dto: TravelDto) {
     dto.id = id;
-
-    const moods = await this.moodsRepository.findOne({
-      where: { travel: { id } },
-    });
-    if (moods) {
-      dto.moods.id = moods.id;
-    }
     return await this.saveTravel(dto);
   }
 
@@ -94,9 +88,15 @@ export class TravelsService {
   }
 
   private async saveTravel(dto: TravelDto): Promise<Travel> {
-    const moods = this.moodsRepository.create({
-      ...dto.moods,
-    });
+    const moodsToCreate = { ...dto.moods };
+    if (dto.id) {
+      const moods = await this.moodsRepository.findOne({
+        where: { travel: { id: dto.id } },
+      });
+      moodsToCreate.id = moods.id;
+    }
+
+    const moods = this.moodsRepository.create(moodsToCreate);
 
     const newTravel = this.travelsRepository.create({
       id: dto.id,

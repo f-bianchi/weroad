@@ -41,7 +41,7 @@ export const store = createStore<State>({
     },
     showHttpError({ commit }, error: AxiosError) {
       const { response } = error as AxiosError
-      const { data, status = 500 } = response || {}
+      const { data = {}, status = 500 } = response || {}
       const notification: Notification = {
         type: 'error',
         title: `Error ${status}`,
