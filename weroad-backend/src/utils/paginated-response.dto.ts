@@ -1,7 +1,7 @@
 import { IsNumber, IsOptional, IsPositive } from 'class-validator';
 import { FindOptionsOrderValue } from 'typeorm';
 
-export const PAGE_SIZE_DEFAULT = 10;
+export const PAGE_SIZE_DEFAULT = 6;
 
 export class PaginationResponseDto<T> {
   items: T[];

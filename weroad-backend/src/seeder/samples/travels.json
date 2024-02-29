@@ -43,5 +43,20 @@
       "party": 70
     },
     "isPublic": true
+  },
+  {
+    "id": "cbf304ae-a335-43fa-9e56-811612dcb602",
+    "slug": "cairo-egypt-express-tour",
+    "name": "Egypt Express: Cairo and the Great Pyramids",
+    "description": "Join us for an extraordinary five-day group adventure through Cairo, the largest city in Africa, nestled alongside the world's longest river. Prepare to be captivated as we explore the city's rich history at the Egyptian Museum, roam through ancient Memphis, enjoy a tranquil Nile River felucca cruise, immerse ourselves in the vibrant Islamic neighborhood with its captivating mosques and bustling bazaars, and stand in awe before the Great Pyramid of Giza - the last remaining wonder of the ancient world.",
+    "numberOfDays": 5,
+    "moods": {
+      "nature": 10,
+      "relax": 10,
+      "history": 95,
+      "culture": 80,
+      "party": 10
+    },
+    "isPublic": true
   }
 ]

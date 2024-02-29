@@ -1,21 +1,39 @@
 <script setup lang="ts">
-import { getPublicTravels } from '@/api/travels';
-import MainHeader from '@/components/MainHeader.vue';
-import TravelCard from '@/components/TravelCard.vue';
-import { type Travel } from '@/models/travel';
-import { onMounted, ref } from 'vue';
+import { getPublicTravels } from '@/api/travels'
+import MainHeader from '@/components/MainHeader.vue'
+import PaginationRouter from '@/components/PaginationRouter.vue'
+import TravelCard from '@/components/TravelCard.vue'
+import { type Travel } from '@/models/travel'
+import { PAGE_SIZE_DEFAULT } from '@/models/pagination'
+import { computed, ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
 
-const travels = ref<Travel[]>([]);
+const travels = ref<Travel[]>([])
+const totalItems = ref(0)
+const route = useRoute()
 
-onMounted(async () => {
+const currentPage = computed((): number => {
+  const page = Number((route.query.page || '1').toString())
+  return isNaN(page) ? 1 : page
+})
+
+const fetchData = async () => {
   try {
-    const { items } = await getPublicTravels(1);
-    travels.value.push(...items);
+    const { items, total } = await getPublicTravels(currentPage.value, PAGE_SIZE_DEFAULT)
+    totalItems.value = total
+    travels.value = items
   } catch (err) {
-    console.log(err);
+    console.log(err)
   }
-});
+}
 
+watch(
+  route,
+  () => {
+    fetchData()
+  },
+  { immediate: true, deep: true }
+)
 </script>
 
 <template>
@@ -31,9 +49,15 @@ onMounted(async () => {
         </p>
       </div>
       <div
-        class="mx-auto mt-16 grid max-w-2xl auto-rows-fr grid-cols-1 gap-8 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+        class="mx-auto mt-16 grid max-w-2xl auto-rows-fr grid-cols-1 gap-8 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3"
+      >
         <TravelCard v-for="travel in travels" :key="travel.id" :travel="travel" />
       </div>
+      <PaginationRouter
+        :total-items="totalItems"
+        :page-size="PAGE_SIZE_DEFAULT"
+        :page="currentPage"
+      />
     </div>
   </div>
 </template>

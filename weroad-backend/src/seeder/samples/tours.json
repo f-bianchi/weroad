@@ -46,5 +46,13 @@
     "startingDate": "2022-01-03",
     "endingDate": "2022-01-10",
     "price": 1499
+  },
+  {
+    "id": "9cefe1bc-eeb7-4d6d-b572-8a7aea2688d2",
+    "travelId": "cbf304ae-a335-43fa-9e56-811612dcb602",
+    "name": "EGP20240203",
+    "startingDate": "2024-02-03",
+    "endingDate": "2024-07-13",
+    "price": 599
   }
 ]

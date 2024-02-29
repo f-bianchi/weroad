@@ -100,7 +100,7 @@ export class ToursService {
       name: dto.name,
       startingDate: dto.startingDate,
       endingDate: dto.endingDate,
-      price: dto.price,
+      price: dto.price * 100,
       travel,
     });
     return await this.toursRepository.save(newTour);

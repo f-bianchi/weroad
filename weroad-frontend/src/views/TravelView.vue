@@ -1,15 +1,12 @@
 <script setup lang="ts">
-import { getPublicTravels } from '@/api/travels';
-import MainHeader from '@/components/MainHeader.vue';
-import { type Travel } from '@/models/travel';
-import { onMounted, ref } from 'vue';
+import { getPublicTravels } from '@/api/travels'
+import MainHeader from '@/components/MainHeader.vue'
+import { type Travel } from '@/models/travel'
+import { onMounted, ref } from 'vue'
 
-const travel = ref<Travel>();
+const travel = ref<Travel>()
 
-onMounted(async () => {
-  
-});
-
+onMounted(async () => {})
 </script>
 
 <template>

@@ -5,7 +5,8 @@ import ConfirmDialog from '@/components/ConfirmDialog.vue'
 import SpinnerIcon from '@/components/SpinnerIcon.vue'
 import { useStore } from '@/store'
 import { deleteTour, createTour, updateTour, type TourBody } from '@/api/tours'
-import { type Tour, formatDateForDB, formatDate } from '@/models/tour'
+import { type Tour } from '@/models/tour'
+import { formatDateForDB, formatDate } from '@/utils/dates'
 import VueDatePicker from '@vuepic/vue-datepicker'
 
 const props = defineProps<{

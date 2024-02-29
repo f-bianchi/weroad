@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { formatDate, formatPrice, type Tour } from '@/models/tour'
+import { type Tour } from '@/models/tour'
+import { formatDate, formatPrice } from '@/utils/dates'
 
 defineProps<{
   tours: Tour[]
