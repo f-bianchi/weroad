@@ -1,6 +1,16 @@
 import { Tour } from 'src/tours/entities/tour.entity';
 import { BaseEntity } from 'src/utils/base.entity';
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  BeforeInsert,
+  BeforeUpdate,
+  Column,
+  Entity,
+  JoinColumn,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Moods } from './moods.entity';
 
 @Entity({ name: 'travels' })
 export class Travel extends BaseEntity {
@@ -28,8 +38,13 @@ export class Travel extends BaseEntity {
   @OneToMany(() => Tour, (tour) => tour.travel)
   tours: Tour[];
 
-  /* TODO 
-  @Column()
-  moods: Mood[];
-  */
+  @OneToOne(() => Moods, (moods) => moods.travel, { cascade: true })
+  @JoinColumn()
+  moods: Moods;
+
+  @BeforeInsert()
+  @BeforeUpdate()
+  priceFromDb() {
+    this.numberOfNights = this.numberOfDays > 1 ? this.numberOfDays - 1 : 0;
+  }
 }

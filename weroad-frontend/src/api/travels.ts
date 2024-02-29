@@ -1,6 +1,6 @@
 import axios from '@/interceptors/axios-interceptor'
 import { type PaginationResponse } from '@/models/pagination'
-import type { Travel } from '@/models/travel'
+import type { Moods, Travel } from '@/models/travel'
 
 export interface TravelBody {
   name: string
@@ -8,7 +8,7 @@ export interface TravelBody {
   slug: string
   description: string
   numberOfDays: number
-  numberOfNights: number
+  moods: Moods
 }
 
 export const getTravels = async (): Promise<Travel[]> => {

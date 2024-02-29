@@ -75,7 +75,7 @@ const removeTour = async () => {
   <div class="px-4 sm:px-6 lg:px-8">
     <form @submit.prevent="handleSubmit">
       <div class="space-y-12">
-        <div class="border-b border-gray-900/10 pb-8">
+        <div class="border-b border-gray-900/10 pb-16">
           <h2 class="text-base font-semibold leading-7 text-gray-900">
             {{ isEditing ? `Edit tour` : 'Create new tour' }}
           </h2>
@@ -131,28 +131,28 @@ const removeTour = async () => {
               </div>
             </div>
           </div>
-
-          <div class="mt-12" v-if="isEditing">
-            <ConfirmDialog
-              title="Attention"
-              message="Are you sure you want to remove this tour?"
-              @confirm="removeTour"
-              v-slot="scope"
-            >
-              <button
-                @click="scope.toggle"
-                type="button"
-                class="rounded bg-rose-50 px-2 py-1 text-sm font-semibold text-rose-600 shadow-sm hover:bg-rose-100"
-              >
-                <SpinnerIcon v-if="loading" />
-                Delete
-              </button>
-            </ConfirmDialog>
-          </div>
         </div>
       </div>
 
-      <div class="mt-6 flex items-center justify-end gap-x-6">
+      <div class="mt-6 flex items-center gap-x-6">
+        <div class="grow">
+          <ConfirmDialog
+            v-if="isEditing"
+            title="Attention"
+            message="Are you sure you want to remove this tour?"
+            @confirm="removeTour"
+            v-slot="scope"
+          >
+            <button
+              @click="scope.toggle"
+              type="button"
+              class="rounded bg-rose-50 px-2 py-1 text-sm font-semibold text-rose-600 shadow-sm hover:bg-rose-100"
+            >
+              <SpinnerIcon v-if="loading" />
+              Delete
+            </button>
+          </ConfirmDialog>
+        </div>
         <RouterLink
           :to="listPath"
           type="button"

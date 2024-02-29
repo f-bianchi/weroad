@@ -3,17 +3,24 @@ import { Dialog, DialogPanel, TransitionChild, TransitionRoot } from '@headlessu
 import type { NavigationItem } from '@/models/navigation'
 import { type User } from '@/models/user'
 import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import MenuNav from './MenuNav.vue'
+import { useRoute } from 'vue-router'
 
 defineProps<{
   navigation: NavigationItem[]
   user?: User
 }>()
 
+const route = useRoute()
+
 const sidebarOpen = ref(false)
 const close = () => (sidebarOpen.value = false)
 const open = () => (sidebarOpen.value = true)
+
+watch(route, () => {
+  close()
+})
 </script>
 
 <template>

@@ -1,5 +1,32 @@
-import { IsISO8601, IsNumber, IsOptional, IsPositive } from 'class-validator';
+import {
+  IsISO8601,
+  IsNumber,
+  IsOptional,
+  IsPositive,
+  Validate,
+  ValidationArguments,
+  ValidatorConstraint,
+  ValidatorConstraintInterface,
+} from 'class-validator';
 import { PaginationRequestDto } from 'src/utils/paginated-response.dto';
+import { isAfter, isSameDay } from 'date-fns';
+
+@ValidatorConstraint({ name: 'isSameOrAfter', async: false })
+export class IsSameOrAfterConstraint implements ValidatorConstraintInterface {
+  validate(value: string, args: ValidationArguments) {
+    const refValue = args.object[args.constraints[0]];
+    return (
+      !value ||
+      !refValue ||
+      isSameDay(value, refValue) ||
+      isAfter(value, refValue)
+    );
+  }
+
+  defaultMessage(args: ValidationArguments) {
+    return `"${args.property}" must be after "${args.constraints[0]}"`;
+  }
+}
 
 export class TourFiltersDto extends PaginationRequestDto {
   @IsNumber()
@@ -18,5 +45,6 @@ export class TourFiltersDto extends PaginationRequestDto {
 
   @IsISO8601()
   @IsOptional()
+  @Validate(IsSameOrAfterConstraint['startingDate'])
   endingDate?: string;
 }

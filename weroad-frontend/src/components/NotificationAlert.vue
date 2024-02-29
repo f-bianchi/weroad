@@ -20,7 +20,7 @@ const closeNotification = (index: number) => {
 <template v-if="notifications && notifications.length > 0">
   <div
     aria-live="assertive"
-    class="pointer-events-none fixed inset-0 flex items-end px-4 py-6 sm:items-start sm:p-6"
+    class="z-50 pointer-events-none fixed inset-0 flex items-end px-4 py-6 sm:items-start sm:p-6"
   >
     <div class="flex w-full flex-col items-center space-y-4 sm:items-end">
       <transition
@@ -64,7 +64,7 @@ const closeNotification = (index: number) => {
                 <button
                   type="button"
                   @click="closeNotification(index)"
-                  class="inline-flex rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                  class="inline-flex rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2"
                 >
                   <span class="sr-only">Close</span>
                   <XMarkIcon class="h-5 w-5" aria-hidden="true" />

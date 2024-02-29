@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Moods } from 'src/travels/entities/moods.entity';
 import {
   PaginationRequestDto,
   PaginationResponseDto,
@@ -13,11 +14,9 @@ export class TravelsService {
   constructor(
     @InjectRepository(Travel)
     private readonly travelsRepository: Repository<Travel>,
+    @InjectRepository(Moods)
+    private readonly moodsRepository: Repository<Moods>,
   ) {}
-
-  async create(dto: TravelDto) {
-    return await this.saveTravel(dto);
-  }
 
   async findAllPublic(
     dto: PaginationRequestDto,
@@ -41,7 +40,7 @@ export class TravelsService {
     const travel = await this.travelsRepository.findOne({
       where: { slug, isPublic: true },
       relations: {
-        tours: true,
+        moods: true,
       },
     });
     if (!travel) {
@@ -51,6 +50,10 @@ export class TravelsService {
   }
 
   /* ADMIN */
+
+  async create(dto: TravelDto) {
+    return await this.saveTravel(dto);
+  }
 
   async findAll() {
     return await this.travelsRepository.find({
@@ -65,6 +68,7 @@ export class TravelsService {
       where: { id },
       relations: {
         tours: true,
+        moods: true,
       },
     });
     if (!travel) {
@@ -75,6 +79,13 @@ export class TravelsService {
 
   async update(id: string, dto: TravelDto) {
     dto.id = id;
+
+    const moods = await this.moodsRepository.findOne({
+      where: { travel: { id } },
+    });
+    if (moods) {
+      dto.moods.id = moods.id;
+    }
     return await this.saveTravel(dto);
   }
 
@@ -83,6 +94,10 @@ export class TravelsService {
   }
 
   private async saveTravel(dto: TravelDto): Promise<Travel> {
+    const moods = this.moodsRepository.create({
+      ...dto.moods,
+    });
+
     const newTravel = this.travelsRepository.create({
       id: dto.id,
       slug: dto.slug,
@@ -90,7 +105,7 @@ export class TravelsService {
       description: dto.description,
       numberOfDays: dto.numberOfDays,
       isPublic: dto.isPublic || false,
-      numberOfNights: dto.numberOfDays > 0 ? dto.numberOfDays - 1 : 0,
+      moods,
     });
 
     return await this.travelsRepository.save(newTravel);

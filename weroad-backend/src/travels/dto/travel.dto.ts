@@ -1,10 +1,14 @@
+import { Type } from 'class-transformer';
 import {
   IsBoolean,
+  IsDefined,
   IsNotEmpty,
   IsNumber,
   IsOptional,
   IsUUID,
+  ValidateNested,
 } from 'class-validator';
+import { MoodsDto } from 'src/travels/dto/moods.dto';
 
 export class TravelDto {
   @IsUUID()
@@ -25,4 +29,9 @@ export class TravelDto {
 
   @IsNumber()
   numberOfDays: number;
+
+  @IsDefined()
+  @ValidateNested()
+  @Type(() => MoodsDto)
+  moods: MoodsDto;
 }
