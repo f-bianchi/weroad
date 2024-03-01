@@ -26,19 +26,35 @@ export class SeederService implements OnModuleInit {
 
   async initData() {
     for (const role of ROLES) {
-      await this.rolesService.create(role);
+      try {
+        await this.rolesService.findOne(role.id);
+      } catch (err) {
+        await this.rolesService.create(role);
+      }
     }
 
     for (const user of USERS) {
-      await this.usersService.create(user as UserDto);
+      try {
+        await this.usersService.findOne(user.id);
+      } catch (err) {
+        await this.usersService.create(user as UserDto);
+      }
     }
 
     for (const travel of TRAVELS) {
-      await this.travelsService.create(travel);
+      try {
+        await this.travelsService.findOne(travel.id);
+      } catch (err) {
+        await this.travelsService.create(travel);
+      }
     }
 
     for (const tour of TOURS) {
-      await this.toursService.create(tour);
+      try {
+        await this.toursService.findOne(tour.id);
+      } catch (err) {
+        await this.toursService.create(tour);
+      }
     }
   }
 }

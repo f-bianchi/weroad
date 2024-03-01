@@ -15,7 +15,7 @@ export class UsersService {
     private readonly rolesRepository: Repository<Role>,
   ) {}
 
-  async findOneById(id: string): Promise<User | null> {
+  async findOne(id: string): Promise<User | null> {
     const user = await this.usersRepository.findOne({
       select: ['email', 'roles', 'id'],
       where: { id },

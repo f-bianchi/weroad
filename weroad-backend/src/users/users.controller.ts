@@ -37,7 +37,7 @@ export class UsersController {
 
   @Get(':id')
   findById(@Param('id') id: string): Promise<User> {
-    return this.usersService.findOneById(id);
+    return this.usersService.findOne(id);
   }
 
   @Put(':id')

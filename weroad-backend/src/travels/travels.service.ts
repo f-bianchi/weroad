@@ -95,7 +95,9 @@ export class TravelsService {
       const moods = await this.moodsRepository.findOne({
         where: { travel: { id: dto.id } },
       });
-      moodsToCreate.id = moods.id;
+      if (moods) {
+        moodsToCreate.id = moods.id;
+      }
     }
 
     const moods = this.moodsRepository.create(moodsToCreate);
