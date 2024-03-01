@@ -3,9 +3,12 @@ import type { Travel } from '@/models/travel';
 import { useStore } from '@/store';
 import { ArrowRightIcon } from '@heroicons/vue/24/outline';
 import { computed } from 'vue';
+import TableRowEmpty from '../TableRowEmpty.vue';
+import PaginationRouter from '../PaginationRouter.vue';
 
-defineProps<{
+const props = defineProps<{
   travels: Travel[];
+  totalItems: number;
 }>();
 
 const store = useStore();
@@ -57,6 +60,7 @@ const isAdmin = computed(() => store.getters.isAdmin);
                 </tr>
               </thead>
               <tbody class="divide-y divide-gray-200 bg-white">
+                <TableRowEmpty v-if="!travels?.length" :col-span="5" />
                 <tr v-for="travel in travels" :key="travel.id">
                   <td class="whitespace-nowrap px-4 py-4 text-sm text-gray-500 sm:pl-6">
                     <div class="text-gray-900">{{ travel.name }}</div>
@@ -107,6 +111,7 @@ const isAdmin = computed(() => store.getters.isAdmin);
           </div>
         </div>
       </div>
+      <PaginationRouter :total-items="props.totalItems" />
     </div>
   </div>
 </template>

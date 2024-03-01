@@ -9,6 +9,7 @@ import { getStartingPrice } from '@/utils/travel';
 import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import TravelTours from '@/components/TravelTours.vue';
+import MainFooter from '@/components/MainFooter.vue';
 
 const travel = ref<Travel>();
 const store = useStore();
@@ -65,7 +66,7 @@ onMounted(async () => {
 
     <section class="relative mx-auto px-4 py-16 sm:px-6 lg:px-8">
       <div class="mx-auto max-w-2xl lg:max-w-7xl">
-        <div class="space-y-16 lg:grid lg:grid-cols-5 lg:gap-x-8 lg:space-y-0">
+        <div class="gap-8 grid grid-cols-2 lg:grid lg:grid-cols-5 lg:gap-x-8">
           <MoodIndicator
             :label="prop"
             :value="travel.moods[prop]"
@@ -83,10 +84,14 @@ onMounted(async () => {
     </section>
 
     <section class="relative mx-auto px-4 py-16 sm:px-8 lg:px-8 max-w-2xl lg:max-w-7xl">
-      <h2 id="testimonial-heading" class="text-2xl font-bold tracking-tight text-gray-900">
+      <h2
+        id="testimonial-heading"
+        class="text-2xl font-bold tracking-tight text-gray-900 text-center"
+      >
         Available dates
       </h2>
       <TravelTours />
     </section>
   </div>
+  <MainFooter />
 </template>

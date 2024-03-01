@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { AdminGuard, EditorGuard } from 'src/roles/roles.guard';
-import { PaginationResponseDto } from 'src/utils/paginated-response.dto';
+import { PaginationRequestDto, PaginationResponseDto } from 'src/utils/paginated-response.dto';
 import { TravelDto } from './dto/travel.dto';
 import { Travel } from './entities/travel.entity';
 import { TravelsService } from './travels.service';
@@ -11,11 +11,8 @@ export class TravelsController {
   constructor(private readonly travelsService: TravelsService) {}
 
   @Get('travels')
-  findAllPublic(
-    @Query('page') page = 1,
-    @Query('pageSize') pageSize = 10,
-  ): Promise<PaginationResponseDto<Travel>> {
-    return this.travelsService.findAllPublic({ page, pageSize });
+  findAllPublic(@Query() queryDto: PaginationRequestDto): Promise<PaginationResponseDto<Travel>> {
+    return this.travelsService.findAllPublic(queryDto);
   }
 
   @Get('travels/:slug')
@@ -27,8 +24,8 @@ export class TravelsController {
 
   @Get('admin/travels')
   @UseGuards(AuthGuard, EditorGuard)
-  findAll() {
-    return this.travelsService.findAll();
+  findAll(@Query() queryDto: PaginationRequestDto): Promise<PaginationResponseDto<Travel>> {
+    return this.travelsService.findAll(queryDto);
   }
 
   @Get('admin/travels/:id')

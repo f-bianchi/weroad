@@ -1,7 +1,11 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Travel } from 'src/travels/entities/travel.entity';
-import { PAGE_SIZE_DEFAULT, PaginationResponseDto } from 'src/utils/paginated-response.dto';
+import {
+  PAGE_SIZE_DEFAULT,
+  PaginationRequestDto,
+  PaginationResponseDto,
+} from 'src/utils/paginated-response.dto';
 import {
   Between,
   FindOptionsOrder,
@@ -53,10 +57,20 @@ export class ToursService {
     return await this.saveTour(dto);
   }
 
-  async findAll(travelId: string): Promise<Tour[]> {
-    return await this.toursRepository.find({
+  async findAll(
+    travelId: string,
+    queryDto: PaginationRequestDto,
+  ): Promise<PaginationResponseDto<Tour>> {
+    const { page = 1, pageSize = PAGE_SIZE_DEFAULT } = queryDto;
+    const [items, total] = await this.toursRepository.findAndCount({
       where: { travel: { id: travelId } },
+      take: pageSize,
+      skip: (page - 1) * pageSize,
     });
+    return {
+      items,
+      total,
+    };
   }
 
   async findOne(id: string) {

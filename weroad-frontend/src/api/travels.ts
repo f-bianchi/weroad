@@ -1,5 +1,5 @@
 import axios from '@/interceptors/axios-interceptor';
-import { type PaginationResponse } from '@/models/pagination';
+import { type PaginationRequest, type PaginationResponse } from '@/models/pagination';
 import type { Moods, Travel } from '@/models/travel';
 
 export interface TravelBody {
@@ -11,8 +11,15 @@ export interface TravelBody {
   moods: Moods;
 }
 
-export const getTravels = async (): Promise<Travel[]> => {
-  const { data } = await axios.get<Travel[]>('/admin/travels');
+export const getTravels = async (
+  pagination: PaginationRequest,
+): Promise<PaginationResponse<Travel>> => {
+  const { data } = await axios.get<PaginationResponse<Travel>>('/admin/travels', {
+    params: {
+      page: pagination.page,
+      pageSize: pagination.pageSize,
+    },
+  });
   return data;
 };
 
@@ -36,13 +43,12 @@ export const deleteTravel = async (id: string): Promise<void> => {
 };
 
 export const getPublicTravels = async (
-  page: number,
-  pageSize: number,
+  pagination: PaginationRequest,
 ): Promise<PaginationResponse<Travel>> => {
   const { data } = await axios.get<PaginationResponse<Travel>>('/travels', {
     params: {
-      page,
-      pageSize,
+      page: pagination.page,
+      pageSize: pagination.pageSize,
     },
   });
   return data;

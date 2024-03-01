@@ -47,8 +47,8 @@ const priceOptions = computed((): FilterOption[] => {
     { label: `Greater than 2000`, filter: { priceFrom: 2000, priceTo: undefined } },
   ].map((option) => ({
     name: option.label,
-    to: { query: { ...route.query, ...option.filter } },
-    undo: { query: { ...route.query, ...undefinizy(option.filter) } },
+    to: { query: { ...route.query, ...option.filter, page: 1 } },
+    undo: { query: { ...route.query, ...undefinizy(option.filter), page: 1 } },
     current: isIncluded(option.filter, props.filters),
   }));
 });
@@ -165,7 +165,7 @@ const activeFilters = computed((): FilterOption[] => {
 
   <div class="bg-gray-100">
     <div class="mx-auto max-w-7xl px-4 py-3 sm:flex sm:items-center sm:px-6 lg:px-8">
-      <h3 class="py-2 text-sm font-medium text-gray-500">Filters active</h3>
+      <h3 class="py-2 text-sm font-medium text-gray-500">Filters</h3>
 
       <div aria-hidden="true" class="hidden h-5 w-px bg-gray-300 sm:ml-4 sm:block" />
 

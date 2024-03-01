@@ -51,12 +51,19 @@ export class TravelsService {
     return await this.saveTravel(dto);
   }
 
-  async findAll() {
-    return await this.travelsRepository.find({
+  async findAll(dto: PaginationRequestDto): Promise<PaginationResponseDto<Travel>> {
+    const { page, pageSize } = dto;
+    const [items, total] = await this.travelsRepository.findAndCount({
+      take: pageSize,
+      skip: (page - 1) * pageSize,
       relations: {
         tours: true,
       },
     });
+    return {
+      items,
+      total,
+    };
   }
 
   async findOne(id: string) {

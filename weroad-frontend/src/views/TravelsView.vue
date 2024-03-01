@@ -4,22 +4,20 @@ import MainHeader from '@/components/MainHeader.vue';
 import PaginationRouter from '@/components/PaginationRouter.vue';
 import TravelCard from '@/components/TravelCard.vue';
 import { type Travel } from '@/models/travel';
-import { PAGE_SIZE_DEFAULT } from '@/models/pagination';
 import { computed, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
+import MainFooter from '@/components/MainFooter.vue';
+import { getPaginationFromRoute } from '@/utils/pagination';
 
 const travels = ref<Travel[]>([]);
 const totalItems = ref(0);
 const route = useRoute();
 
-const currentPage = computed((): number => {
-  const page = Number((route.query.page || '1').toString());
-  return isNaN(page) ? 1 : page;
-});
+const pagination = computed(() => getPaginationFromRoute(route));
 
 const fetchData = async () => {
   try {
-    const { items, total } = await getPublicTravels(currentPage.value, PAGE_SIZE_DEFAULT);
+    const { items, total } = await getPublicTravels(pagination.value);
     totalItems.value = total;
     travels.value = items;
   } catch (err) {
@@ -38,7 +36,7 @@ watch(
 
 <template>
   <MainHeader />
-  <div class="bg-white py-24 sm:py-48">
+  <div class="bg-white py-16 sm:pt-48">
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
       <div class="mx-auto text-center">
         <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
@@ -53,11 +51,8 @@ watch(
       >
         <TravelCard v-for="travel in travels" :key="travel.id" :travel="travel" />
       </div>
-      <PaginationRouter
-        :total-items="totalItems"
-        :page-size="PAGE_SIZE_DEFAULT"
-        :page="currentPage"
-      />
+      <PaginationRouter :total-items="totalItems" />
     </div>
   </div>
+  <MainFooter />
 </template>

@@ -1,12 +1,21 @@
 import axios from '@/interceptors/axios-interceptor';
+import type { PaginationRequest, PaginationResponse } from '@/models/pagination';
 import type { Tour, TourFilters } from '@/models/tour';
 
 export interface TourBody extends Tour {
   travelId: string;
 }
 
-export const getTours = async (travelId: string): Promise<Tour[]> => {
-  const { data } = await axios.get<Tour[]>(`/admin/travels/${travelId}/tours`);
+export const getTours = async (
+  travelId: string,
+  pagination: PaginationRequest,
+): Promise<PaginationResponse<Tour>> => {
+  const { data } = await axios.get<PaginationResponse<Tour>>(`/admin/travels/${travelId}/tours`, {
+    params: {
+      page: pagination.page,
+      pageSize: pagination.pageSize,
+    },
+  });
   return data;
 };
 
@@ -29,7 +38,12 @@ export const deleteTour = async (id: string): Promise<void> => {
   await axios.delete<Tour>(`/admin/tours/${id}`);
 };
 
-export const getTravelTours = async (slug: string, filters: TourFilters): Promise<Tour[]> => {
-  const { data } = await axios.get<Tour[]>(`/travels/${slug}/tours`, { params: filters });
+export const getTravelTours = async (
+  slug: string,
+  filters: TourFilters,
+): Promise<PaginationResponse<Tour>> => {
+  const { data } = await axios.get<PaginationResponse<Tour>>(`/travels/${slug}/tours`, {
+    params: filters,
+  });
   return data;
 };

@@ -1,10 +1,14 @@
 <script setup lang="ts">
 import { type Tour } from '@/models/tour';
-import { formatDate, formatPrice } from '@/utils/dates';
+import { formatDate } from '@/utils/dates';
+import { formatPrice } from '@/utils/price';
+import TableRowEmpty from '../TableRowEmpty.vue';
+import PaginationRouter from '../PaginationRouter.vue';
 
 defineProps<{
   tours: Tour[];
   travelId: string;
+  totalItems: number;
 }>();
 </script>
 
@@ -51,6 +55,7 @@ defineProps<{
                 </tr>
               </thead>
               <tbody class="divide-y divide-gray-200 bg-white">
+                <TableRowEmpty v-if="!tours?.length" :col-span="5" />
                 <tr v-for="tour in tours" :key="tour.id">
                   <td class="whitespace-nowrap px-4 py-4 text-sm text-gray-500 sm:pl-6">
                     {{ tour.name }}
@@ -80,6 +85,7 @@ defineProps<{
           </div>
         </div>
       </div>
+      <PaginationRouter :total-items="totalItems" />
     </div>
   </div>
 </template>

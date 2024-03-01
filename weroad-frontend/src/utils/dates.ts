@@ -1,16 +1,13 @@
-export const formatPrice = (price: number): string => {
-  return new Intl.NumberFormat('en-GB', {
-    style: 'currency',
-    currency: 'EUR',
-  }).format(price);
-};
-
-export const formatDate = (date: string | Date): string => {
-  return new Intl.DateTimeFormat('en-GB', {
+export const formatDate = (
+  date: string | Date,
+  options: Intl.DateTimeFormatOptions = {
     day: '2-digit',
     month: '2-digit',
     year: 'numeric',
-  }).format(new Date(date));
+  },
+): string => {
+  if (!date) return '';
+  return new Intl.DateTimeFormat('en-GB', options).format(new Date(date));
 };
 
 export const formatDateForDB = (date: Date): string => {

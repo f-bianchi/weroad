@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { User } from '@/models/user';
+import TableRowEmpty from '../TableRowEmpty.vue';
 
 defineProps<{
   users: User[];
@@ -44,6 +45,7 @@ defineProps<{
                 </tr>
               </thead>
               <tbody class="divide-y divide-gray-200 bg-white">
+                <TableRowEmpty v-if="!users?.length" :col-span="3" />
                 <tr v-for="user in users" :key="user.email">
                   <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 sm:pl-6">
                     {{ user.email }}
