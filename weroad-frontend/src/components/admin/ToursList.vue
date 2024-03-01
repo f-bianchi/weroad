@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { type Tour } from '@/models/tour'
-import { formatDate, formatPrice } from '@/utils/dates'
+import { type Tour } from '@/models/tour';
+import { formatDate, formatPrice } from '@/utils/dates';
 
 defineProps<{
-  tours: Tour[]
-  travelId: string
-}>()
+  tours: Tour[];
+  travelId: string;
+}>();
 </script>
 
 <template>

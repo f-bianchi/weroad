@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import { createTravel, deleteTravel, updateTravel, type TravelBody } from '@/api/travels'
-import ConfirmDialog from '@/components/ConfirmDialog.vue'
-import SpinnerIcon from '@/components/SpinnerIcon.vue'
-import { INITIAL_MOODS, MOODS_PROPS, type Travel } from '@/models/travel'
-import router from '@/router'
-import { useStore } from '@/store'
-import { computed, onMounted, reactive, ref } from 'vue'
+import { createTravel, deleteTravel, updateTravel, type TravelBody } from '@/api/travels';
+import ConfirmDialog from '@/components/ConfirmDialog.vue';
+import SpinnerIcon from '@/components/SpinnerIcon.vue';
+import { INITIAL_MOODS, MOODS_PROPS, type Travel } from '@/models/travel';
+import router from '@/router';
+import { useStore } from '@/store';
+import { computed, onMounted, reactive, ref } from 'vue';
 
 const props = defineProps<{
-  travel: Travel
-}>()
+  travel: Travel;
+}>();
 
-const store = useStore()
+const store = useStore();
 
 const form = reactive<TravelBody>({
   name: '',
@@ -19,59 +19,59 @@ const form = reactive<TravelBody>({
   slug: '',
   description: '',
   numberOfDays: 1,
-  moods: { ...INITIAL_MOODS }
-})
+  moods: { ...INITIAL_MOODS },
+});
 
-const loading = ref(false)
+const loading = ref(false);
 const numberOfNights = computed(() => {
-  return form.numberOfDays > 1 ? form.numberOfDays - 1 : 0
-})
+  return form.numberOfDays > 1 ? form.numberOfDays - 1 : 0;
+});
 
-const isEditing = computed(() => !!props.travel.id)
+const isEditing = computed(() => !!props.travel.id);
 
 onMounted(async () => {
-  form.name = props.travel.name
-  form.isPublic = props.travel.isPublic
-  form.slug = props.travel.slug
-  form.description = props.travel.description
-  form.numberOfDays = props.travel.numberOfDays
+  form.name = props.travel.name;
+  form.isPublic = props.travel.isPublic;
+  form.slug = props.travel.slug;
+  form.description = props.travel.description;
+  form.numberOfDays = props.travel.numberOfDays;
   form.moods = {
     culture: props.travel.moods.culture,
     relax: props.travel.moods.relax,
     history: props.travel.moods.history,
     nature: props.travel.moods.nature,
-    party: props.travel.moods.party
-  }
-})
+    party: props.travel.moods.party,
+  };
+});
 
 const handleSubmit = async () => {
-  loading.value = true
+  loading.value = true;
 
   try {
     if (isEditing.value) {
-      await updateTravel(props.travel.id!, form)
+      await updateTravel(props.travel.id!, form);
     } else {
-      await createTravel(form)
+      await createTravel(form);
     }
-    router.replace('/admin/travels')
+    router.replace('/admin/travels');
   } catch (err) {
-    store.dispatch('showHttpError', err)
+    store.dispatch('showHttpError', err);
   } finally {
-    loading.value = false
+    loading.value = false;
   }
-}
+};
 
 const removeTravel = async () => {
-  loading.value = false
+  loading.value = false;
   try {
-    await deleteTravel(props.travel.id!)
-    router.replace('/admin/travels')
+    await deleteTravel(props.travel.id!);
+    router.replace('/admin/travels');
   } catch (err) {
-    store.dispatch('showHttpError', err)
+    store.dispatch('showHttpError', err);
   } finally {
-    loading.value = false
+    loading.value = false;
   }
-}
+};
 </script>
 
 <template>
@@ -207,7 +207,7 @@ const removeTravel = async () => {
                   :value="form.moods[prop]"
                   @input="
                     (event) => {
-                      form.moods[prop] = Number((event.target as HTMLInputElement).value)
+                      form.moods[prop] = Number((event.target as HTMLInputElement).value);
                     }
                   "
                   class="w-full h-2 bg-rose-100 rounded-lg appearance-none cursor-pointer range-lg [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-rose-500"

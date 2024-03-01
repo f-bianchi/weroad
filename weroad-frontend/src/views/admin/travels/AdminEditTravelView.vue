@@ -1,27 +1,27 @@
 <script setup lang="ts">
-import { getTravel } from '@/api/travels'
-import SpinnerIcon from '@/components/SpinnerIcon.vue'
-import TravelForm from '@/components/admin/TravelForm.vue'
-import type { Travel } from '@/models/travel'
-import { useStore } from '@/store'
-import { onMounted, ref } from 'vue'
-import { useRoute } from 'vue-router'
+import { getTravel } from '@/api/travels';
+import SpinnerIcon from '@/components/SpinnerIcon.vue';
+import TravelForm from '@/components/admin/TravelForm.vue';
+import type { Travel } from '@/models/travel';
+import { useStore } from '@/store';
+import { onMounted, ref } from 'vue';
+import { useRoute } from 'vue-router';
 
-const travel = ref<Travel>()
-const route = useRoute()
-const store = useStore()
-const loading = ref(false)
+const travel = ref<Travel>();
+const route = useRoute();
+const store = useStore();
+const loading = ref(false);
 
 onMounted(async () => {
-  loading.value = true
+  loading.value = true;
   try {
-    travel.value = await getTravel(route.params.id.toString())
+    travel.value = await getTravel(route.params.id.toString());
   } catch (err) {
-    store.dispatch('showHttpError', err)
+    store.dispatch('showHttpError', err);
   } finally {
-    loading.value = false
+    loading.value = false;
   }
-})
+});
 </script>
 
 <template>

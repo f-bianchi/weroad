@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import { getUsers } from '@/api/users'
-import UsersList from '@/components/admin/UsersList.vue'
-import type { User } from '@/models/user'
-import { useStore } from '@/store'
-import { onMounted, ref } from 'vue'
+import { getUsers } from '@/api/users';
+import UsersList from '@/components/admin/UsersList.vue';
+import type { User } from '@/models/user';
+import { useStore } from '@/store';
+import { onMounted, ref } from 'vue';
 
-const users = ref<User[]>([])
-const store = useStore()
+const users = ref<User[]>([]);
+const store = useStore();
 
 onMounted(async () => {
   try {
-    users.value = await getUsers()
+    users.value = await getUsers();
   } catch (err) {
-    store.dispatch('showHttpError', err)
+    store.dispatch('showHttpError', err);
   }
-})
+});
 </script>
 
 <template>

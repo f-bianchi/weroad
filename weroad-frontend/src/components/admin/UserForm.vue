@@ -1,69 +1,69 @@
 <script setup lang="ts">
-import { computed, onMounted, reactive, ref } from 'vue'
-import router from '@/router'
-import { createUser, deleteUser, updateUser, type UserBody } from '@/api/users'
-import { RoleName, type User } from '@/models/user'
+import { computed, onMounted, reactive, ref } from 'vue';
+import router from '@/router';
+import { createUser, deleteUser, updateUser, type UserBody } from '@/api/users';
+import { RoleName, type User } from '@/models/user';
 import {
   Listbox,
   ListboxButton,
   ListboxLabel,
   ListboxOption,
-  ListboxOptions
-} from '@headlessui/vue'
-import { CheckIcon, ChevronUpDownIcon } from '@heroicons/vue/20/solid'
-import ConfirmDialog from '@/components/ConfirmDialog.vue'
-import SpinnerIcon from '@/components/SpinnerIcon.vue'
-import { useStore } from '@/store'
-const ROLES = [RoleName.Admin, RoleName.Editor]
+  ListboxOptions,
+} from '@headlessui/vue';
+import { CheckIcon, ChevronUpDownIcon } from '@heroicons/vue/20/solid';
+import ConfirmDialog from '@/components/ConfirmDialog.vue';
+import SpinnerIcon from '@/components/SpinnerIcon.vue';
+import { useStore } from '@/store';
+const ROLES = [RoleName.Admin, RoleName.Editor];
 
 const props = defineProps<{
-  user: User
-}>()
+  user: User;
+}>();
 
 const form = reactive<UserBody>({
   email: '',
   password: '',
-  roles: []
-})
+  roles: [],
+});
 
-const loading = ref(false)
-const store = useStore()
+const loading = ref(false);
+const store = useStore();
 
-const isEditing = computed(() => !!props.user.id)
+const isEditing = computed(() => !!props.user.id);
 
 onMounted(async () => {
-  form.email = props.user.email
-  form.roles = props.user.roles.map((r) => r.name)
-})
+  form.email = props.user.email;
+  form.roles = props.user.roles.map((r) => r.name);
+});
 
 const handleSubmit = async () => {
-  loading.value = true
+  loading.value = true;
 
   try {
     if (isEditing.value) {
-      await updateUser(props.user.id!, form)
+      await updateUser(props.user.id!, form);
     } else {
-      await createUser(form)
+      await createUser(form);
     }
-    router.replace('/admin/users')
+    router.replace('/admin/users');
   } catch (err) {
-    store.dispatch('showHttpError', err)
+    store.dispatch('showHttpError', err);
   } finally {
-    loading.value = false
+    loading.value = false;
   }
-}
+};
 
 const removeUser = async () => {
-  loading.value = false
+  loading.value = false;
   try {
-    await deleteUser(props.user.id!)
-    router.replace('/admin/users')
+    await deleteUser(props.user.id!);
+    router.replace('/admin/users');
   } catch (err) {
-    store.dispatch('showHttpError', err)
+    store.dispatch('showHttpError', err);
   } finally {
-    loading.value = false
+    loading.value = false;
   }
-}
+};
 </script>
 
 <template>
@@ -146,7 +146,7 @@ const removeUser = async () => {
                       <li
                         :class="[
                           active ? 'bg-rose-600 text-white' : 'text-gray-900',
-                          'relative cursor-default select-none py-2 pl-3 pr-9'
+                          'relative cursor-default select-none py-2 pl-3 pr-9',
                         ]"
                       >
                         <span
@@ -158,7 +158,7 @@ const removeUser = async () => {
                           v-if="selected"
                           :class="[
                             active ? 'text-white' : 'text-rose-600',
-                            'absolute inset-y-0 right-0 flex items-center pr-4'
+                            'absolute inset-y-0 right-0 flex items-center pr-4',
                           ]"
                         >
                           <CheckIcon class="h-5 w-5" aria-hidden="true" />

@@ -10,6 +10,7 @@ import {
 } from 'class-validator';
 import { PaginationRequestDto } from 'src/utils/paginated-response.dto';
 import { isAfter, isSameDay } from 'date-fns';
+import { Type } from 'class-transformer';
 
 @ValidatorConstraint({ name: 'isSameOrAfter', async: false })
 export class IsSameOrAfterConstraint implements ValidatorConstraintInterface {
@@ -32,11 +33,13 @@ export class TourFiltersDto extends PaginationRequestDto {
   @IsNumber()
   @IsPositive()
   @IsOptional()
+  @Type(() => Number)
   priceFrom?: number;
 
   @IsNumber()
   @IsPositive()
   @IsOptional()
+  @Type(() => Number)
   priceTo?: number;
 
   @IsISO8601()

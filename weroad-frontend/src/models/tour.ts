@@ -1,4 +1,4 @@
-import type { PaginationRequest } from "./pagination";
+import type { PaginationRequest } from './pagination';
 
 export interface Tour {
   id?: string;

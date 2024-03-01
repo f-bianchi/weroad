@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import type { Travel } from '@/models/travel'
-import { useStore } from '@/store'
-import { ArrowRightIcon } from '@heroicons/vue/24/outline'
-import { computed } from 'vue'
+import type { Travel } from '@/models/travel';
+import { useStore } from '@/store';
+import { ArrowRightIcon } from '@heroicons/vue/24/outline';
+import { computed } from 'vue';
 
 defineProps<{
-  travels: Travel[]
-}>()
+  travels: Travel[];
+}>();
 
-const store = useStore()
-const isAdmin = computed(() => store.getters.isAdmin)
+const store = useStore();
+const isAdmin = computed(() => store.getters.isAdmin);
 </script>
 
 <template>

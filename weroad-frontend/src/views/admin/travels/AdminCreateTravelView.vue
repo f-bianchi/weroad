@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import TravelForm from '@/components/admin/TravelForm.vue'
-import { type Travel, INITIAL_MOODS } from '@/models/travel'
+import TravelForm from '@/components/admin/TravelForm.vue';
+import { type Travel, INITIAL_MOODS } from '@/models/travel';
 
 const travel: Travel = {
   name: '',
@@ -10,8 +10,8 @@ const travel: Travel = {
   numberOfDays: 1,
   numberOfNights: 1,
   tours: [],
-  moods: { ...INITIAL_MOODS }
-}
+  moods: { ...INITIAL_MOODS },
+};
 </script>
 
 <template>

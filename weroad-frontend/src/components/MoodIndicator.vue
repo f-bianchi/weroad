@@ -1,34 +1,34 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import { type MoodsType } from '@/models/travel'
+import { computed } from 'vue';
+import { type MoodsType } from '@/models/travel';
 
-const RADIUS = 50
-const STROKE = 10
-const circumference = RADIUS * 2 * Math.PI
+const RADIUS = 50;
+const STROKE = 10;
+const circumference = RADIUS * 2 * Math.PI;
 
 const props = defineProps<{
-  label: MoodsType
-  value: number
-}>()
+  label: MoodsType;
+  value: number;
+}>();
 
-const percentage = computed(() => circumference - (props.value / 100) * circumference)
+const percentage = computed(() => circumference - (props.value / 100) * circumference);
 
 const color = computed(() => {
   switch (props.label) {
     case 'nature':
-      return 'text-green-700'
+      return 'text-green-700';
     case 'relax':
-      return 'text-sky-600'
+      return 'text-sky-600';
     case 'culture':
-      return 'text-orange-600'
+      return 'text-orange-600';
     case 'history':
-      return 'text-yellow-500'
+      return 'text-yellow-500';
     case 'party':
-      return 'text-indigo-500'
+      return 'text-indigo-500';
     default:
-      return 'text-rose-700'
+      return 'text-rose-700';
   }
-})
+});
 </script>
 
 <template>

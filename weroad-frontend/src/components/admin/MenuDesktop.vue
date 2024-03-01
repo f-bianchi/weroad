@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import type { NavigationItem } from '@/models/navigation'
-import { type User } from '@/models/user'
-import MenuNav from './MenuNav.vue'
+import type { NavigationItem } from '@/models/navigation';
+import { type User } from '@/models/user';
+import MenuNav from './MenuNav.vue';
 
 defineProps<{
-  navigation: NavigationItem[]
-  user?: User
-}>()
+  navigation: NavigationItem[];
+  user?: User;
+}>();
 </script>
 
 <template>

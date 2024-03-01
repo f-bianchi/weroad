@@ -1,29 +1,29 @@
 <script setup lang="ts">
-import type { Travel } from '@/models/travel'
-import { ref, onMounted } from 'vue'
-import { getTravel } from '@/api/travels'
-import { useStore } from '@/store'
-import { useRoute, useRouter } from 'vue-router'
-import SpinnerIcon from '@/components/SpinnerIcon.vue'
-import { ArrowLeftIcon } from '@heroicons/vue/24/outline'
+import type { Travel } from '@/models/travel';
+import { ref, onMounted } from 'vue';
+import { getTravel } from '@/api/travels';
+import { useStore } from '@/store';
+import { useRoute, useRouter } from 'vue-router';
+import SpinnerIcon from '@/components/SpinnerIcon.vue';
+import { ArrowLeftIcon } from '@heroicons/vue/24/outline';
 
-const travel = ref<Travel>()
-const store = useStore()
-const route = useRoute()
-const router = useRouter()
-const loading = ref(false)
+const travel = ref<Travel>();
+const store = useStore();
+const route = useRoute();
+const router = useRouter();
+const loading = ref(false);
 
 onMounted(async () => {
-  loading.value = true
+  loading.value = true;
 
   try {
-    travel.value = await getTravel(route.params.travelId.toString())
+    travel.value = await getTravel(route.params.travelId.toString());
   } catch (err) {
-    store.dispatch('showHttpError', err)
+    store.dispatch('showHttpError', err);
   } finally {
-    loading.value = false
+    loading.value = false;
   }
-})
+});
 </script>
 
 <template v-if="travel">

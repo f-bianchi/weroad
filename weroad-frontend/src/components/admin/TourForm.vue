@@ -1,41 +1,41 @@
 <script setup lang="ts">
-import { computed, onMounted, reactive, ref } from 'vue'
-import router from '@/router'
-import ConfirmDialog from '@/components/ConfirmDialog.vue'
-import SpinnerIcon from '@/components/SpinnerIcon.vue'
-import { useStore } from '@/store'
-import { deleteTour, createTour, updateTour, type TourBody } from '@/api/tours'
-import { type Tour } from '@/models/tour'
-import { formatDateForDB, formatDate } from '@/utils/dates'
-import VueDatePicker from '@vuepic/vue-datepicker'
+import { computed, onMounted, reactive, ref } from 'vue';
+import router from '@/router';
+import ConfirmDialog from '@/components/ConfirmDialog.vue';
+import SpinnerIcon from '@/components/SpinnerIcon.vue';
+import { useStore } from '@/store';
+import { deleteTour, createTour, updateTour, type TourBody } from '@/api/tours';
+import { type Tour } from '@/models/tour';
+import { formatDateForDB, formatDate } from '@/utils/dates';
+import VueDatePicker from '@vuepic/vue-datepicker';
 
 const props = defineProps<{
-  tour: Tour
-  travelId: string
-}>()
+  tour: Tour;
+  travelId: string;
+}>();
 
 const form = reactive<{ name: string; dates: Date[]; price: number }>({
   name: '',
   dates: [new Date(), new Date()],
-  price: 0
-})
+  price: 0,
+});
 
-const loading = ref(false)
-const store = useStore()
+const loading = ref(false);
+const store = useStore();
 
-const isEditing = computed(() => !!props.tour.id)
-const listPath = computed(() => `/admin/travels/${props.travelId}/tours`)
+const isEditing = computed(() => !!props.tour.id);
+const listPath = computed(() => `/admin/travels/${props.travelId}/tours`);
 
-const formatDates = (dates: Date[]) => `${formatDate(dates[0])} - ${formatDate(dates[1])}`
+const formatDates = (dates: Date[]) => `${formatDate(dates[0])} - ${formatDate(dates[1])}`;
 
 onMounted(async () => {
-  form.name = props.tour.name
-  form.dates = [new Date(props.tour.startingDate), new Date(props.tour.endingDate)]
-  form.price = props.tour.price
-})
+  form.name = props.tour.name;
+  form.dates = [new Date(props.tour.startingDate), new Date(props.tour.endingDate)];
+  form.price = props.tour.price;
+});
 
 const handleSubmit = async () => {
-  loading.value = true
+  loading.value = true;
 
   try {
     const tour: TourBody = {
@@ -43,32 +43,32 @@ const handleSubmit = async () => {
       name: form.name,
       price: form.price,
       startingDate: formatDateForDB(form.dates[0]),
-      endingDate: formatDateForDB(form.dates[1])
-    }
+      endingDate: formatDateForDB(form.dates[1]),
+    };
     if (isEditing.value) {
-      await updateTour(props.tour.id!, tour)
+      await updateTour(props.tour.id!, tour);
     } else {
-      await createTour(tour)
+      await createTour(tour);
     }
-    router.replace(listPath.value)
+    router.replace(listPath.value);
   } catch (err) {
-    store.dispatch('showHttpError', err)
+    store.dispatch('showHttpError', err);
   } finally {
-    loading.value = false
+    loading.value = false;
   }
-}
+};
 
 const removeTour = async () => {
-  loading.value = false
+  loading.value = false;
   try {
-    await deleteTour(props.tour.id!)
-    router.replace(listPath.value)
+    await deleteTour(props.tour.id!);
+    router.replace(listPath.value);
   } catch (err) {
-    store.dispatch('showHttpError', err)
+    store.dispatch('showHttpError', err);
   } finally {
-    loading.value = false
+    loading.value = false;
   }
-}
+};
 </script>
 
 <template>

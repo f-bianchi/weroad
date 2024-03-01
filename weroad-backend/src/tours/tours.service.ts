@@ -110,11 +110,11 @@ export class ToursService {
     const { priceFrom, priceTo, startingDate, endingDate } = dto;
     const where: FindOptionsWhere<Tour> = {};
     if (priceFrom >= 0 && priceTo >= 0) {
-      where.price = Between(priceFrom, priceTo);
+      where.price = Between(priceFrom * 100, priceTo * 100);
     } else if (priceFrom >= 0) {
-      where.price = MoreThanOrEqual(priceFrom);
+      where.price = MoreThanOrEqual(priceFrom * 100);
     } else if (priceTo >= 0) {
-      where.price = LessThanOrEqual(priceFrom);
+      where.price = LessThanOrEqual(priceTo * 100);
     }
 
     if (startingDate) {
@@ -132,7 +132,7 @@ export class ToursService {
     const result: FindOptionsOrder<Tour> = {};
 
     if (sort && order) {
-      result['sort'] = order;
+      result[sort] = order;
     }
 
     result.startingDate = 'ASC';

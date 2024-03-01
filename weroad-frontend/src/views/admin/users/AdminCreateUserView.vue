@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import UserForm from '@/components/admin/UserForm.vue'
-import { RoleName, type User } from '@/models/user'
+import UserForm from '@/components/admin/UserForm.vue';
+import { RoleName, type User } from '@/models/user';
 
 const user: User = {
   email: '',
-  roles: [{ id: '', name: RoleName.Editor }]
-}
+  roles: [{ id: '', name: RoleName.Editor }],
+};
 </script>
 
 <template>

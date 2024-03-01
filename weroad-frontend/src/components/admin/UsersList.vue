@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { User } from '@/models/user'
+import type { User } from '@/models/user';
 
 defineProps<{
-  users: User[]
-}>()
+  users: User[];
+}>();
 </script>
 
 <template>

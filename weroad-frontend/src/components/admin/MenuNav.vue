@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
-import type { NavigationItem } from '@/models/navigation'
-import type { User } from '@/models/user'
-import ConfirmDialog from '@/components/ConfirmDialog.vue'
-import { store } from '@/store'
+import { RouterLink } from 'vue-router';
+import type { NavigationItem } from '@/models/navigation';
+import type { User } from '@/models/user';
+import ConfirmDialog from '@/components/ConfirmDialog.vue';
+import { store } from '@/store';
 
 defineProps<{
-  navigation: NavigationItem[]
-  user?: User
-}>()
+  navigation: NavigationItem[];
+  user?: User;
+}>();
 </script>
 
 <template>
@@ -29,14 +29,14 @@ defineProps<{
                   item.current
                     ? 'bg-gray-50 text-rose-600'
                     : 'text-gray-700 hover:text-rose-600 hover:bg-gray-50',
-                  'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'
+                  'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold',
                 ]"
               >
                 <component
                   :is="item.icon"
                   :class="[
                     item.current ? 'text-rose-600' : 'text-gray-400 group-hover:text-rose-600',
-                    'h-6 w-6 shrink-0'
+                    'h-6 w-6 shrink-0',
                   ]"
                   aria-hidden="true"
                 />

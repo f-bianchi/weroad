@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { getStartingPrice } from '@/utils/travel'
-import { type Travel, TRAVEL_IMAGE_PREVIEW } from '@/models/travel'
-import { computed } from 'vue'
+import { getStartingPrice } from '@/utils/travel';
+import { type Travel, TRAVEL_IMAGE_PREVIEW } from '@/models/travel';
+import { computed } from 'vue';
 
 const props = defineProps<{
-  travel: Travel
-}>()
+  travel: Travel;
+}>();
 
-const startingPrice = computed(() => getStartingPrice(props.travel))
+const startingPrice = computed(() => getStartingPrice(props.travel));
 </script>
 
 <template>

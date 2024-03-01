@@ -1,72 +1,72 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import LoginView from '@/views/LoginView.vue'
-import TravelsView from '@/views/TravelsView.vue'
-import AdminView from '@/views/admin/AdminView.vue'
-import AdminUsersView from '@/views/admin/users/AdminUsersView.vue'
-import AdminTravelsView from '@/views/admin/travels/AdminTravelsView.vue'
-import AdminEditUserView from '@/views/admin/users/AdminEditUserView.vue'
-import AdminCreateUserView from '@/views/admin/users/AdminCreateUserView.vue'
-import AdminCreateTravelView from '@/views/admin/travels/AdminCreateTravelView.vue'
-import AdminEditTravelView from '@/views/admin/travels/AdminEditTravelView.vue'
-import AdminTravelToursView from '@/views/admin/tours/AdminTravelToursView.vue'
-import AdminTravelToursListView from '@/views/admin/tours/AdminTravelToursListView.vue'
-import AdminTravelToursCreateView from '@/views/admin/tours/AdminTravelToursCreateView.vue'
-import AdminTravelToursEditView from '@/views/admin/tours/AdminTravelToursEditView.vue'
-import TravelView from '@/views/TravelView.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import LoginView from '@/views/LoginView.vue';
+import TravelsView from '@/views/TravelsView.vue';
+import AdminView from '@/views/admin/AdminView.vue';
+import AdminUsersView from '@/views/admin/users/AdminUsersView.vue';
+import AdminTravelsView from '@/views/admin/travels/AdminTravelsView.vue';
+import AdminEditUserView from '@/views/admin/users/AdminEditUserView.vue';
+import AdminCreateUserView from '@/views/admin/users/AdminCreateUserView.vue';
+import AdminCreateTravelView from '@/views/admin/travels/AdminCreateTravelView.vue';
+import AdminEditTravelView from '@/views/admin/travels/AdminEditTravelView.vue';
+import AdminTravelToursView from '@/views/admin/tours/AdminTravelToursView.vue';
+import AdminTravelToursListView from '@/views/admin/tours/AdminTravelToursListView.vue';
+import AdminTravelToursCreateView from '@/views/admin/tours/AdminTravelToursCreateView.vue';
+import AdminTravelToursEditView from '@/views/admin/tours/AdminTravelToursEditView.vue';
+import TravelView from '@/views/TravelView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/login',
-      component: LoginView
+      component: LoginView,
     },
     {
       path: '/',
-      component: TravelsView
+      component: TravelsView,
     },
     {
       path: '/travels/:slug',
-      component: TravelView
+      component: TravelView,
     },
     {
       path: '/admin',
       component: AdminView,
       beforeEnter: async (to, from, next) => {
-        const token = localStorage.getItem('token')
+        const token = localStorage.getItem('token');
         if (!token) {
-          return next('/login')
+          return next('/login');
         }
-        next()
+        next();
       },
       children: [
         {
           path: '',
-          redirect: '/admin/travels'
+          redirect: '/admin/travels',
         },
         {
           path: 'users',
-          component: AdminUsersView
+          component: AdminUsersView,
         },
         {
           path: 'users/create',
-          component: AdminCreateUserView
+          component: AdminCreateUserView,
         },
         {
           path: 'users/:id',
-          component: AdminEditUserView
+          component: AdminEditUserView,
         },
         {
           path: 'travels',
-          component: AdminTravelsView
+          component: AdminTravelsView,
         },
         {
           path: 'travels/create',
-          component: AdminCreateTravelView
+          component: AdminCreateTravelView,
         },
         {
           path: 'travels/:id',
-          component: AdminEditTravelView
+          component: AdminEditTravelView,
         },
         {
           path: 'travels/:travelId/tours',
@@ -74,25 +74,25 @@ const router = createRouter({
           children: [
             {
               path: '',
-              component: AdminTravelToursListView
+              component: AdminTravelToursListView,
             },
             {
               path: 'create',
-              component: AdminTravelToursCreateView
+              component: AdminTravelToursCreateView,
             },
             {
               path: ':id',
-              component: AdminTravelToursEditView
-            }
-          ]
-        }
-      ]
+              component: AdminTravelToursEditView,
+            },
+          ],
+        },
+      ],
     },
     {
       path: '/:pathMatch(.*)*',
-      redirect: '/'
-    }
-  ]
-})
+      redirect: '/',
+    },
+  ],
+});
 
-export default router
+export default router;

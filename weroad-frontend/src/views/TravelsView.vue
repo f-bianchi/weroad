@@ -1,39 +1,39 @@
 <script setup lang="ts">
-import { getPublicTravels } from '@/api/travels'
-import MainHeader from '@/components/MainHeader.vue'
-import PaginationRouter from '@/components/PaginationRouter.vue'
-import TravelCard from '@/components/TravelCard.vue'
-import { type Travel } from '@/models/travel'
-import { PAGE_SIZE_DEFAULT } from '@/models/pagination'
-import { computed, ref, watch } from 'vue'
-import { useRoute } from 'vue-router'
+import { getPublicTravels } from '@/api/travels';
+import MainHeader from '@/components/MainHeader.vue';
+import PaginationRouter from '@/components/PaginationRouter.vue';
+import TravelCard from '@/components/TravelCard.vue';
+import { type Travel } from '@/models/travel';
+import { PAGE_SIZE_DEFAULT } from '@/models/pagination';
+import { computed, ref, watch } from 'vue';
+import { useRoute } from 'vue-router';
 
-const travels = ref<Travel[]>([])
-const totalItems = ref(0)
-const route = useRoute()
+const travels = ref<Travel[]>([]);
+const totalItems = ref(0);
+const route = useRoute();
 
 const currentPage = computed((): number => {
-  const page = Number((route.query.page || '1').toString())
-  return isNaN(page) ? 1 : page
-})
+  const page = Number((route.query.page || '1').toString());
+  return isNaN(page) ? 1 : page;
+});
 
 const fetchData = async () => {
   try {
-    const { items, total } = await getPublicTravels(currentPage.value, PAGE_SIZE_DEFAULT)
-    totalItems.value = total
-    travels.value = items
+    const { items, total } = await getPublicTravels(currentPage.value, PAGE_SIZE_DEFAULT);
+    totalItems.value = total;
+    travels.value = items;
   } catch (err) {
-    console.log(err)
+    console.log(err);
   }
-}
+};
 
 watch(
   route,
   () => {
-    fetchData()
+    fetchData();
   },
-  { immediate: true, deep: true }
-)
+  { immediate: true, deep: true },
+);
 </script>
 
 <template>

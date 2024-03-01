@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed } from 'vue';
 import {
   CheckCircleIcon,
   ExclamationTriangleIcon,
-  InformationCircleIcon
-} from '@heroicons/vue/24/outline'
-import { XMarkIcon } from '@heroicons/vue/20/solid'
-import { useStore } from '@/store'
-import type { Notification } from '@/models/notification'
+  InformationCircleIcon,
+} from '@heroicons/vue/24/outline';
+import { XMarkIcon } from '@heroicons/vue/20/solid';
+import { useStore } from '@/store';
+import type { Notification } from '@/models/notification';
 
-const store = useStore()
-const notifications = computed((): Notification[] => store.getters.notifications)
+const store = useStore();
+const notifications = computed((): Notification[] => store.getters.notifications);
 
 const closeNotification = (index: number) => {
-  store.dispatch('closeNotification', index)
-}
+  store.dispatch('closeNotification', index);
+};
 </script>
 
 <template v-if="notifications && notifications.length > 0">

@@ -33,16 +33,24 @@ onMounted(async () => {
   <div class="relative overflow-hidden bg-white" v-if="travel">
     <div aria-hidden="true" class="absolute inset-0">
       <div class="absolute inset-0 mx-auto overflow-hidden">
-        <img :src="TRAVEL_IMAGE_PREVIEW + travel.slug" :alt="travel.slug"
-          class="h-full w-full object-cover object-center" />
+        <img
+          :src="TRAVEL_IMAGE_PREVIEW + travel.slug"
+          :alt="travel.slug"
+          class="h-full w-full object-cover object-center"
+        />
       </div>
       <div class="absolute inset-0 bg-white bg-opacity-50" />
       <div class="absolute inset-0 bg-gradient-to-t from-white via-white" />
     </div>
 
-    <section class="relative mx-auto flex flex-col items-center px-4 pt-72 text-center sm:px-6 lg:px-8 pb-16">
+    <section
+      class="relative mx-auto flex flex-col items-center px-4 pt-72 text-center sm:px-6 lg:px-8 pb-16"
+    >
       <div class="mx-auto max-w-2xl lg:max-w-none">
-        <h2 id="sale-heading" class="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
+        <h2
+          id="sale-heading"
+          class="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl"
+        >
           {{ travel.name }}
         </h2>
         <p class="mx-auto mt-4 max-w-xl text-xl text-gray-600 font-light">
@@ -58,7 +66,12 @@ onMounted(async () => {
     <section class="relative mx-auto px-4 py-16 sm:px-6 lg:px-8">
       <div class="mx-auto max-w-2xl lg:max-w-7xl">
         <div class="space-y-16 lg:grid lg:grid-cols-5 lg:gap-x-8 lg:space-y-0">
-          <MoodIndicator :label="prop" :value="travel.moods[prop]" v-for="prop in MOODS_PROPS" :key="prop" />
+          <MoodIndicator
+            :label="prop"
+            :value="travel.moods[prop]"
+            v-for="prop in MOODS_PROPS"
+            :key="prop"
+          />
         </div>
       </div>
     </section>

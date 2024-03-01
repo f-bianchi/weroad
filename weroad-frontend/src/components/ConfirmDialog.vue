@@ -1,22 +1,22 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
+import { ref } from 'vue';
+import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue';
 
-const open = ref(false)
+const open = ref(false);
 
 defineProps<{
-  title: string
-  message: string
-}>()
+  title: string;
+  message: string;
+}>();
 
-const emits = defineEmits(['confirm'])
+const emits = defineEmits(['confirm']);
 
 const confirm = () => {
-  open.value = false
-  emits('confirm')
-}
+  open.value = false;
+  emits('confirm');
+};
 
-const toggle = () => (open.value = !open.value)
+const toggle = () => (open.value = !open.value);
 </script>
 
 <template>

@@ -1,31 +1,31 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
-import SpinnerIcon from '@/components/SpinnerIcon.vue'
-import router from '@/router'
-import { login } from '@/api/auth'
-import { useStore } from '@/store'
+import { reactive, ref } from 'vue';
+import SpinnerIcon from '@/components/SpinnerIcon.vue';
+import router from '@/router';
+import { login } from '@/api/auth';
+import { useStore } from '@/store';
 
 const form = reactive({
   email: '',
-  password: ''
-})
+  password: '',
+});
 
-const loading = ref(false)
-const store = useStore()
+const loading = ref(false);
+const store = useStore();
 
 const handleSubmit = async () => {
-  loading.value = true
+  loading.value = true;
 
   try {
-    const token = await login(form.email, form.password)
-    localStorage.setItem('token', token)
-    router.push('/admin/travels')
+    const token = await login(form.email, form.password);
+    localStorage.setItem('token', token);
+    router.push('/admin/travels');
   } catch (err) {
-    store.dispatch('showHttpError', err)
+    store.dispatch('showHttpError', err);
   } finally {
-    loading.value = false
+    loading.value = false;
   }
-}
+};
 </script>
 
 <template>
