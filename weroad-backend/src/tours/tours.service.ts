@@ -1,14 +1,7 @@
-import {
-  BadRequestException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Travel } from 'src/travels/entities/travel.entity';
-import {
-  PAGE_SIZE_DEFAULT,
-  PaginationResponseDto,
-} from 'src/utils/paginated-response.dto';
+import { PAGE_SIZE_DEFAULT, PaginationResponseDto } from 'src/utils/paginated-response.dto';
 import {
   Between,
   FindOptionsOrder,
@@ -30,10 +23,7 @@ export class ToursService {
     private readonly travelsRepository: Repository<Travel>,
   ) {}
 
-  async findTravelTours(
-    slug: string,
-    dto: TourFiltersDto,
-  ): Promise<PaginationResponseDto<Tour>> {
+  async findTravelTours(slug: string, dto: TourFiltersDto): Promise<PaginationResponseDto<Tour>> {
     const travel = await this.travelsRepository.findOne({
       where: { slug, isPublic: true },
     });

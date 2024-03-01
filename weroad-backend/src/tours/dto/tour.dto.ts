@@ -1,10 +1,4 @@
-import {
-  IsISO8601,
-  IsNotEmpty,
-  IsNumber,
-  IsOptional,
-  IsUUID,
-} from 'class-validator';
+import { IsISO8601, IsNotEmpty, IsNumber, IsOptional, IsUUID } from 'class-validator';
 
 export class TourDto {
   @IsUUID()

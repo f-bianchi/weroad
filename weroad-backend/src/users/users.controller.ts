@@ -41,10 +41,7 @@ export class UsersController {
   }
 
   @Put(':id')
-  update(
-    @Param('id') id: string,
-    @Body() userDto: UserUpdateDto,
-  ): Promise<User> {
+  update(@Param('id') id: string, @Body() userDto: UserUpdateDto): Promise<User> {
     return this.usersService.update(id, userDto);
   }
 
@@ -52,10 +49,7 @@ export class UsersController {
   @Delete(':id')
   remove(@Param('id') id: string, @Req() request: Request): Promise<void> {
     if (request['user'].id === id) {
-      throw new HttpException(
-        'You cannot remove yourself',
-        HttpStatus.FORBIDDEN,
-      );
+      throw new HttpException('You cannot remove yourself', HttpStatus.FORBIDDEN);
     }
     return this.usersService.remove(id);
   }

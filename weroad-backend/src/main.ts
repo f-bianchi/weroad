@@ -9,9 +9,7 @@ async function bootstrap() {
     cors: true,
   });
 
-  app.useGlobalPipes(
-    new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }),
-  );
+  app.useGlobalPipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }));
   app.useGlobalFilters(new UniqueExceptionFilter());
 
   await app.listen(process.env.PORT);

@@ -1,10 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Moods } from 'src/travels/entities/moods.entity';
-import {
-  PaginationRequestDto,
-  PaginationResponseDto,
-} from 'src/utils/paginated-response.dto';
+import { PaginationRequestDto, PaginationResponseDto } from 'src/utils/paginated-response.dto';
 import { Repository } from 'typeorm';
 import { TravelDto } from './dto/travel.dto';
 import { Travel } from './entities/travel.entity';
@@ -18,9 +15,7 @@ export class TravelsService {
     private readonly moodsRepository: Repository<Moods>,
   ) {}
 
-  async findAllPublic(
-    dto: PaginationRequestDto,
-  ): Promise<PaginationResponseDto<Travel>> {
+  async findAllPublic(dto: PaginationRequestDto): Promise<PaginationResponseDto<Travel>> {
     const { page, pageSize } = dto;
     const [items, total] = await this.travelsRepository.findAndCount({
       where: { isPublic: true },

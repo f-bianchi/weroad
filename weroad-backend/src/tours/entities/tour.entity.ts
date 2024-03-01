@@ -1,12 +1,6 @@
 import { Travel } from 'src/travels/entities/travel.entity';
 import { BaseEntity } from 'src/utils/base.entity';
-import {
-  AfterLoad,
-  Column,
-  Entity,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { AfterLoad, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'tours' })
 export class Tour extends BaseEntity {

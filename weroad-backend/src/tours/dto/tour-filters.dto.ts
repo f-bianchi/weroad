@@ -16,12 +16,7 @@ import { Type } from 'class-transformer';
 export class IsSameOrAfterConstraint implements ValidatorConstraintInterface {
   validate(value: string, args: ValidationArguments) {
     const refValue = args.object[args.constraints[0]];
-    return (
-      !value ||
-      !refValue ||
-      isSameDay(value, refValue) ||
-      isAfter(value, refValue)
-    );
+    return !value || !refValue || isSameDay(value, refValue) || isAfter(value, refValue);
   }
 
   defaultMessage(args: ValidationArguments) {

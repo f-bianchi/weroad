@@ -9,9 +9,7 @@ class RoleGuard implements CanActivate {
     if (!request['user']) {
       return false;
     }
-    return request['user'].roles.some((r: Role) =>
-      this.acceptedRoles.includes(r.name),
-    );
+    return request['user'].roles.some((r: Role) => this.acceptedRoles.includes(r.name));
   }
 }
 
