@@ -5,17 +5,11 @@ import { type Tour, type TourFilters } from '@/models/tour';
 import { getTravelTours } from '@/api/tours';
 import { type OrderType } from '@/models/pagination';
 import TravelToursFilters from './TravelToursFilters.vue';
-import { formatDate } from '@/utils/dates';
+import { formatDateShort } from '@/utils/dates';
 import { formatPrice } from '@/utils/price';
 import TableRowEmpty from '@/components/TableRowEmpty.vue';
 import PaginationRouter from './PaginationRouter.vue';
 import { getPaginationFromRoute } from '@/utils/pagination';
-
-const DATE_FORMATTER: Intl.DateTimeFormatOptions = {
-  day: '2-digit',
-  month: 'short',
-  year: 'numeric',
-};
 
 const tours = ref<Tour[]>();
 const totalItems = ref(0);
@@ -24,7 +18,7 @@ const loading = ref(false);
 
 const filters = computed((): TourFilters => {
   const { page, pageSize } = getPaginationFromRoute(route);
-  const { sort, order, priceFrom, priceTo } = route.query;
+  const { sort, order, priceFrom, priceTo, startingDate, endingDate } = route.query;
   return {
     page,
     pageSize,
@@ -32,6 +26,8 @@ const filters = computed((): TourFilters => {
     order: order ? (order.toString() as OrderType) : undefined,
     priceTo: priceTo ? Number(priceTo.toString()) : undefined,
     priceFrom: priceFrom ? Number(priceFrom.toString()) : undefined,
+    startingDate: startingDate ? startingDate.toString() : undefined,
+    endingDate: endingDate ? endingDate.toString() : undefined,
   };
 });
 
@@ -58,10 +54,10 @@ watch(
     <section aria-labelledby="filter-heading">
       <TravelToursFilters :filters="filters" />
     </section>
-    <div class="px-4 sm:px-6 lg:px-8">
+    <div>
       <div class="mt-4 flow-root">
-        <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-          <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+        <div class="-my-2 overflow-x-auto">
+          <div class="inline-block min-w-full py-2 align-middle sm:px-2 min-h-64">
             <table class="min-w-full divide-y divide-gray-300">
               <thead>
                 <tr>
@@ -92,13 +88,9 @@ watch(
                     class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-light text-gray-900 sm:pl-0"
                   >
                     From
-                    <span class="font-medium">{{
-                      formatDate(tour.startingDate, DATE_FORMATTER)
-                    }}</span>
+                    <span class="font-medium"> {{ formatDateShort(tour.startingDate) }}</span>
                     to
-                    <span class="font-medium">{{
-                      formatDate(tour.endingDate, DATE_FORMATTER)
-                    }}</span>
+                    <span class="font-medium"> {{ formatDateShort(tour.endingDate) }}</span>
                   </td>
                   <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ tour.name }}</td>
                   <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
