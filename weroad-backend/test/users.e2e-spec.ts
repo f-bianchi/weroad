@@ -1,41 +1,16 @@
-import * as request from 'supertest';
-import { AuthService } from '../src/auth/auth.service';
-import { Role, RoleName } from '../src/roles/entities/role.entity';
-import { moduleFixture, appTest } from './jest.setup';
-import { UsersService } from '../src/users/users.service';
 import * as bcrypt from 'bcrypt';
+import * as request from 'supertest';
+import { Role, RoleName } from '../src/roles/entities/role.entity';
+import { UsersService } from '../src/users/users.service';
+import { appTest, moduleFixture, tokenAdmin, tokenEditor } from './jest.setup';
 
 const EDITOR_ID = 'f12462bb-0588-425d-b23e-d36e5792c822';
 
 describe('Users', () => {
-  let tokenAdmin: string;
-  let tokenEditor: string;
   let usersService: UsersService;
 
   beforeAll(async () => {
     usersService = moduleFixture.get<UsersService>(UsersService);
-
-    const authService: AuthService = moduleFixture.get<AuthService>(AuthService);
-    tokenAdmin = await authService.getAccessToken({
-      email: 'admin@example.com',
-      id: 'b1fb0518-efce-4684-8477-a59dc09d336a',
-      roles: [
-        {
-          id: 'baf18948-721e-49f5-aa7f-bed1a5415cb6',
-          name: RoleName.Admin,
-        },
-      ],
-    });
-    tokenEditor = await authService.getAccessToken({
-      email: 'editor@example.com',
-      id: EDITOR_ID,
-      roles: [
-        {
-          id: '9442703c-dd4f-4e36-9554-a60574c408be',
-          name: RoleName.Editor,
-        },
-      ],
-    });
   });
 
   it('/users (GET) 403 for editor', () => {
@@ -123,7 +98,7 @@ describe('Users', () => {
       .set('Authorization', `Bearer ${tokenAdmin}`)
       .expect(204);
 
-    const user = await usersService.findOne(EDITOR_ID);
+    const user = await usersService.findOneById(EDITOR_ID);
     expect(user).toBe(null);
   });
 });

@@ -15,7 +15,7 @@ export class UsersService {
     private readonly rolesRepository: Repository<Role>,
   ) {}
 
-  async findOne(id: string): Promise<User | null> {
+  async findOneById(id: string): Promise<User | null> {
     return await this.usersRepository.findOne({
       select: ['email', 'roles', 'id'],
       where: { id },
@@ -79,6 +79,6 @@ export class UsersService {
     const newUser = this.usersRepository.create(entityToCreate);
 
     const user = await this.usersRepository.save(newUser);
-    return this.findOne(user.id);
+    return this.findOneById(user.id);
   }
 }

@@ -19,7 +19,7 @@ export class RolesService {
     return await this.roleRepository.save(newRole);
   }
 
-  async findOne(id: string): Promise<Role | null> {
+  async findOneById(id: string): Promise<Role | null> {
     return await this.roleRepository.findOne({ where: { id } });
   }
 }

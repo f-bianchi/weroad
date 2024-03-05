@@ -54,6 +54,7 @@ export class ToursService {
   /* ADMIN */
 
   async create(dto: TourDto) {
+    delete dto.id;
     return await this.saveTour(dto);
   }
 
@@ -73,7 +74,7 @@ export class ToursService {
     };
   }
 
-  async findOne(id: string): Promise<Tour | null> {
+  async findOneById(id: string): Promise<Tour | null> {
     return await this.toursRepository.findOne({
       where: { id },
     });
@@ -88,7 +89,7 @@ export class ToursService {
     await this.toursRepository.delete(id);
   }
 
-  private async saveTour(dto: TourDto): Promise<Tour> {
+  async saveTour(dto: TourDto): Promise<Tour> {
     const travel = await this.travelsRepository.findOne({
       where: { id: dto.travelId },
     });

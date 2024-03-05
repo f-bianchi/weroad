@@ -44,6 +44,7 @@ export class TravelsService {
   /* ADMIN */
 
   async create(dto: TravelDto) {
+    delete dto.id;
     return await this.saveTravel(dto);
   }
 
@@ -62,7 +63,7 @@ export class TravelsService {
     };
   }
 
-  async findOne(id: string): Promise<Travel | null> {
+  async findOneById(id: string): Promise<Travel | null> {
     return await this.travelsRepository.findOne({
       where: { id },
       relations: {
@@ -81,7 +82,7 @@ export class TravelsService {
     await this.travelsRepository.delete(id);
   }
 
-  private async saveTravel(dto: TravelDto): Promise<Travel> {
+  async saveTravel(dto: TravelDto): Promise<Travel> {
     const moodsToCreate: DeepPartial<Moods> = { ...dto.moods };
     if (dto.id) {
       const moods = await this.moodsRepository.findOne({

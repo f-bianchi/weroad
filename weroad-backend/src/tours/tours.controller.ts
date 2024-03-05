@@ -3,6 +3,8 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
+  HttpStatus,
   NotFoundException,
   Param,
   Post,
@@ -43,7 +45,7 @@ export class ToursController {
   @UseGuards(AuthGuard, EditorGuard)
   @Get('admin/tours/:id')
   async findOne(@Param('id') id: string): Promise<Tour> {
-    const tour = await this.toursService.findOne(id);
+    const tour = await this.toursService.findOneById(id);
     if (!tour) {
       throw new NotFoundException();
     }
@@ -63,6 +65,7 @@ export class ToursController {
   }
 
   @UseGuards(AuthGuard, EditorGuard)
+  @HttpCode(HttpStatus.NO_CONTENT)
   @Delete('admin/tours/:id')
   remove(@Param('id') id: string): Promise<void> {
     return this.toursService.remove(id);

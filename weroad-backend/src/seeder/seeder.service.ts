@@ -1,4 +1,5 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
+import { DataSource } from 'typeorm';
 import { RolesService } from '../roles/roles.service';
 import * as ROLES from '../seeder/samples/roles.json';
 import * as TOURS from '../seeder/samples/tours.json';
@@ -8,7 +9,6 @@ import { ToursService } from '../tours/tours.service';
 import { TravelsService } from '../travels/travels.service';
 import { UserDto } from '../users/dto/user.dto';
 import { UsersService } from '../users/users.service';
-import { DataSource } from 'typeorm';
 
 @Injectable()
 export class SeederService implements OnModuleInit {
@@ -28,26 +28,26 @@ export class SeederService implements OnModuleInit {
 
   async initData() {
     for (const role of ROLES) {
-      if (!(await this.rolesService.findOne(role.id))) {
+      if (!(await this.rolesService.findOneById(role.id))) {
         await this.rolesService.create(role);
       }
     }
 
     for (const user of USERS) {
-      if (!(await this.usersService.findOne(user.id))) {
+      if (!(await this.usersService.findOneById(user.id))) {
         await this.usersService.saveUser(user as UserDto);
       }
     }
 
     for (const travel of TRAVELS) {
-      if (!(await this.travelsService.findOne(travel.id))) {
-        await this.travelsService.create(travel);
+      if (!(await this.travelsService.findOneById(travel.id))) {
+        await this.travelsService.saveTravel(travel);
       }
     }
 
     for (const tour of TOURS) {
-      if (!(await this.toursService.findOne(tour.id))) {
-        await this.toursService.create(tour);
+      if (!(await this.toursService.findOneById(tour.id))) {
+        await this.toursService.saveTour(tour);
       }
     }
   }
