@@ -16,9 +16,10 @@ async function bootstrap() {
 
   setupGlobals(app);
 
-  await app.listen(process.env.PORT);
-
-  const logger = new Logger('Main');
-  logger.log(`Application started on port ${process.env.PORT}`);
+  if (process.env.NODE_ENV !== 'test') {
+    await app.listen(process.env.PORT);
+    const logger = new Logger('Main');
+    logger.log(`Application started on port ${process.env.PORT}`);
+  }
 }
 bootstrap();

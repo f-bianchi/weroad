@@ -35,6 +35,7 @@ export class UsersService {
   }
 
   async create(userDto: UserDto): Promise<User> {
+    delete userDto.id;
     return await this.saveUser(userDto);
   }
 
@@ -56,7 +57,7 @@ export class UsersService {
     });
   }
 
-  private async saveUser(dto: UserDto | UserUpdateDto): Promise<User> {
+  async saveUser(dto: UserDto | UserUpdateDto): Promise<User> {
     const roles = await this.rolesRepository.find({
       where: {
         name: In(dto.roles),
@@ -77,6 +78,7 @@ export class UsersService {
 
     const newUser = this.usersRepository.create(entityToCreate);
 
-    return await this.usersRepository.save(newUser);
+    const user = await this.usersRepository.save(newUser);
+    return this.findOne(user.id);
   }
 }

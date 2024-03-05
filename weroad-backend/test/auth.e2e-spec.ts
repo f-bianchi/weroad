@@ -1,34 +1,22 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
-import { AppModule } from '../src/app.module';
-import { setupGlobals } from '../src/main';
 import { AuthService } from '../src/auth/auth.service';
 import { RoleName } from '../src/roles/entities/role.entity';
+import { moduleFixture } from './jest.setup';
+import { appTest } from './jest.setup';
 
 describe('Auth', () => {
-  let app: INestApplication;
   let authService: AuthService;
 
-  beforeEach(async () => {
-    const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [AppModule],
-    }).compile();
-
-    app = moduleFixture.createNestApplication();
-    setupGlobals(app);
-
+  beforeAll(async () => {
     authService = moduleFixture.get<AuthService>(AuthService);
-
-    await app.init();
   });
 
   it('/login (POST) 400 no body', () => {
-    return request(app.getHttpServer()).post('/auth/login').expect(400);
+    return request(appTest.getHttpServer()).post('/auth/login').expect(400);
   });
 
   it('/login (POST) 400 not valid email', () => {
-    return request(app.getHttpServer())
+    return request(appTest.getHttpServer())
       .post('/auth/login')
       .send({ email: 'foo', password: 'bar' })
       .expect(400)
@@ -36,7 +24,7 @@ describe('Auth', () => {
   });
 
   it('/login (POST) 401 user not found', () => {
-    return request(app.getHttpServer())
+    return request(appTest.getHttpServer())
       .post('/auth/login')
       .send({ email: 'foo@example.com', password: 'bar' })
       .expect(401)
@@ -44,7 +32,7 @@ describe('Auth', () => {
   });
 
   it('/login (POST) 401 password not correct', () => {
-    return request(app.getHttpServer())
+    return request(appTest.getHttpServer())
       .post('/auth/login')
       .send({ email: 'admin@example.com', password: 'bar' })
       .expect(401)
@@ -52,7 +40,7 @@ describe('Auth', () => {
   });
 
   it('/login (POST) 200 return access token', (done) => {
-    request(app.getHttpServer())
+    request(appTest.getHttpServer())
       .post('/auth/login')
       .send({ email: 'admin@example.com', password: 'password' })
       .expect(200)
@@ -63,7 +51,7 @@ describe('Auth', () => {
   });
 
   it('/me (GET) 401 without token', () => {
-    return request(app.getHttpServer()).get('/auth/me').expect(401);
+    return request(appTest.getHttpServer()).get('/auth/me').expect(401);
   });
 
   it('/me (GET) 200 return me', async () => {
@@ -78,11 +66,10 @@ describe('Auth', () => {
       ],
     };
     const token = await authService.getAccessToken(user);
-    const response = await request(app.getHttpServer())
+    const response = await request(appTest.getHttpServer())
       .get('/auth/me')
       .set('Authorization', `Bearer ${token}`)
       .expect(200);
-
     expect(response.body).toEqual(expect.objectContaining(user));
   });
 });

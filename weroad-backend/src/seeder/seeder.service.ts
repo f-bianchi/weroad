@@ -8,6 +8,7 @@ import { ToursService } from '../tours/tours.service';
 import { TravelsService } from '../travels/travels.service';
 import { UserDto } from '../users/dto/user.dto';
 import { UsersService } from '../users/users.service';
+import { DataSource } from 'typeorm';
 
 @Injectable()
 export class SeederService implements OnModuleInit {
@@ -16,6 +17,7 @@ export class SeederService implements OnModuleInit {
     private rolesService: RolesService,
     private travelsService: TravelsService,
     private toursService: ToursService,
+    private dataSource: DataSource,
   ) {}
 
   async onModuleInit() {
@@ -33,7 +35,7 @@ export class SeederService implements OnModuleInit {
 
     for (const user of USERS) {
       if (!(await this.usersService.findOne(user.id))) {
-        await this.usersService.create(user as UserDto);
+        await this.usersService.saveUser(user as UserDto);
       }
     }
 
@@ -47,6 +49,28 @@ export class SeederService implements OnModuleInit {
       if (!(await this.toursService.findOne(tour.id))) {
         await this.toursService.create(tour);
       }
+    }
+  }
+
+  async dropAllTables(): Promise<void> {
+    const queryRunner = this.dataSource.createQueryRunner();
+
+    await queryRunner.startTransaction();
+
+    try {
+      const tables = await queryRunner.query(
+        `SELECT table_name FROM information_schema.tables WHERE table_schema = 'public' AND table_type = 'BASE TABLE'`,
+      );
+      for (const table of tables) {
+        await queryRunner.query(`DROP TABLE ${table.table_name} CASCADE`);
+      }
+      await queryRunner.commitTransaction();
+    } catch (err) {
+      await queryRunner.rollbackTransaction();
+      throw err;
+    } finally {
+      await this.dataSource.synchronize(true);
+      await queryRunner.release();
     }
   }
 }

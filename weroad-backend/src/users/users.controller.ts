@@ -49,7 +49,7 @@ export class UsersController {
     return this.usersService.update(id, userDto);
   }
 
-  @HttpCode(HttpStatus.OK)
+  @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':id')
   remove(@Param('id') id: string, @Req() request: Request): Promise<void> {
     if (request['user'].id === id) {
