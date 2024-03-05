@@ -31,10 +31,16 @@ Before starting the backend, make sure to check the variables in the `.env` file
 
 Once started, a seeder service will automatically insert initial data into the database if environment variable `ENABLE_IMPORT_MOCK_DATA` is `true`.
 
-To format the code according to the rules of the `.prettierrc.json` file, run:
+To format the code according to the rules of the `.prettierrc.json` file, in `weroad-backend` folder, run:
 
 ```bash
 npm run format
+```
+
+To start run test, in `weroad-backend` folder, run the following command:
+
+```bash
+npm t
 ```
 
 ### Frontend
