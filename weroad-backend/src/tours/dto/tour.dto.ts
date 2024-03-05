@@ -1,4 +1,5 @@
 import { IsISO8601, IsNotEmpty, IsNumber, IsOptional, IsUUID } from 'class-validator';
+import { IsSameOrAfter } from '../../utils/date-validator';
 
 export class TourDto {
   @IsUUID()
@@ -14,6 +15,7 @@ export class TourDto {
 
   @IsNotEmpty()
   @IsISO8601()
+  @IsSameOrAfter('startingDate')
   endingDate: string;
 
   @IsNumber()

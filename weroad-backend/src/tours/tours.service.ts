@@ -77,6 +77,7 @@ export class ToursService {
   async findOneById(id: string): Promise<Tour | null> {
     return await this.toursRepository.findOne({
       where: { id },
+      relations: { travel: true },
     });
   }
 
@@ -104,7 +105,8 @@ export class ToursService {
       price: dto.price * 100,
       travel,
     });
-    return await this.toursRepository.save(newTour);
+    const tour = await this.toursRepository.save(newTour);
+    return await this.findOneById(tour.id);
   }
 
   private getWhereFromQuery(dto: TourFiltersDto): FindOptionsWhere<Tour> {

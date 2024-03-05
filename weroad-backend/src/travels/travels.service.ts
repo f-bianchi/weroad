@@ -105,6 +105,7 @@ export class TravelsService {
       moods,
     });
 
-    return await this.travelsRepository.save(newTravel);
+    const travel = await this.travelsRepository.save(newTravel);
+    return await this.findOneById(travel.id);
   }
 }
