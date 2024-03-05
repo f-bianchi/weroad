@@ -5,10 +5,11 @@
 .dp__theme_light {
   --dp-primary-color: #e11d48;
   --dp-primary-disabled-color: #fda4af;
-  --dp-font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --dp-font-family: ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
-.dp__theme_light .dp__action_select{
+.dp__theme_light .dp__action_select {
   height: 2rem;
   font-size: 1rem;
 }

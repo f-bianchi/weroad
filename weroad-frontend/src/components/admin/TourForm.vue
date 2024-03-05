@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { computed, onMounted, reactive, ref } from 'vue';
-import router from '@/router';
+import { createTour, deleteTour, updateTour, type TourBody } from '@/api/tours';
 import ConfirmDialog from '@/components/ConfirmDialog.vue';
 import SpinnerIcon from '@/components/SpinnerIcon.vue';
-import { useStore } from '@/store';
-import { deleteTour, createTour, updateTour, type TourBody } from '@/api/tours';
 import { type Tour } from '@/models/tour';
-import { formatDateForDB, formatDate } from '@/utils/dates';
+import router from '@/router';
+import { useStore } from '@/store';
+import { formatDate, formatDateISO8601 } from '@/utils/dates';
 import VueDatePicker from '@vuepic/vue-datepicker';
+import { computed, onMounted, reactive, ref } from 'vue';
 
 const props = defineProps<{
   tour: Tour;
@@ -42,8 +42,8 @@ const handleSubmit = async () => {
       travelId: props.travelId,
       name: form.name,
       price: form.price,
-      startingDate: formatDateForDB(form.dates[0]),
-      endingDate: formatDateForDB(form.dates[1]),
+      startingDate: formatDateISO8601(form.dates[0]),
+      endingDate: formatDateISO8601(form.dates[1]),
     };
     if (isEditing.value) {
       await updateTour(props.tour.id!, tour);

@@ -13,7 +13,7 @@ Start Docker and containers for db:
 
 ```bash
 cd docker
-docker-compose up -d
+docker compose up -d
 ```
 
 ### Backend
@@ -27,8 +27,15 @@ npm i
 npm start
 ```
 
-Before starting the backend, make sure to check the variables in the `.env` file. If you want to change the default variables, create a `.env.local` file.
-Once started, a seeder service will automatically insert initial data into the database.
+Before starting the backend, make sure to check the variables in the `.env` file. If you want to change the default variables (eg: connection to a different db), create a `.env.local` file.
+
+Once started, a seeder service will automatically insert initial data into the database if environment variable `ENABLE_IMPORT_MOCK_DATA` is `true`.
+
+To format the code according to the rules of the `.prettierrc.json` file, run:
+
+```bash
+npm run format
+```
 
 ### Frontend
 
@@ -36,7 +43,20 @@ To start the frontend, in `weroad-frontend` folder, run the following command:
 
 ```bash
 npm i
-npm start
+npm run dev
+```
+
+Login in admin section with these users:
+
+|       Email        |  Password |  Role  |
+|--------------------|:---------:|-------:|
+| admin@example.com  |  password | admin  |
+| editor@example.com |  password | editor |
+
+To format the code according to the rules of the `.prettierrc.json` file, run:
+
+```bash
+npm run format
 ```
 
 For more information on Tailwind UI components, visit https://tailwindui.com/components.

@@ -1,14 +1,14 @@
 <script setup lang="ts">
+import TravelToursSort from '@/components/TravelToursSort.vue';
+import { type TourFilters } from '@/models/tour';
+import router from '@/router';
+import { formatDate, formatDateISO8601, formatDateShort } from '@/utils/dates';
+import { isIncluded, undefinizy } from '@/utils/general';
 import { Popover, PopoverButton, PopoverGroup, PopoverPanel } from '@headlessui/vue';
 import { ChevronDownIcon } from '@heroicons/vue/20/solid';
+import VueDatePicker from '@vuepic/vue-datepicker';
 import { computed } from 'vue';
 import { useRoute, type RouteQueryAndHash } from 'vue-router';
-import { type TourFilters } from '@/models/tour';
-import { isIncluded, undefinizy } from '@/utils/general';
-import VueDatePicker from '@vuepic/vue-datepicker';
-import { formatDate, formatDateForDB, formatDateShort } from '@/utils/dates';
-import TravelToursSort from '@/components/TravelToursSort.vue';
-import router from '@/router';
 
 const props = defineProps<{
   filters: TourFilters;
@@ -66,8 +66,8 @@ const updateDates = (dates: Date[]) => {
   router.replace({
     query: {
       ...route.query,
-      startingDate: startingDate ? formatDateForDB(startingDate) : undefined,
-      endingDate: endingDate ? formatDateForDB(endingDate) : undefined,
+      startingDate: startingDate ? formatDateISO8601(startingDate) : undefined,
+      endingDate: endingDate ? formatDateISO8601(endingDate) : undefined,
       page: 1,
     },
   });

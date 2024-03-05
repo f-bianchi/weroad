@@ -1,4 +1,15 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  NotFoundException,
+  Param,
+  Post,
+  Put,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { EditorGuard } from 'src/roles/roles.guard';
 import { PaginationRequestDto, PaginationResponseDto } from 'src/utils/paginated-response.dto';
@@ -31,8 +42,12 @@ export class ToursController {
 
   @UseGuards(AuthGuard, EditorGuard)
   @Get('admin/tours/:id')
-  findOne(@Param('id') id: string): Promise<Tour> {
-    return this.toursService.findOne(id);
+  async findOne(@Param('id') id: string): Promise<Tour> {
+    const tour = await this.toursService.findOne(id);
+    if (!tour) {
+      throw new NotFoundException();
+    }
+    return tour;
   }
 
   @UseGuards(AuthGuard, EditorGuard)

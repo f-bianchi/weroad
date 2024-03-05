@@ -73,14 +73,10 @@ export class ToursService {
     };
   }
 
-  async findOne(id: string) {
-    const tour = await this.toursRepository.findOne({
+  async findOne(id: string): Promise<Tour | null> {
+    return await this.toursRepository.findOne({
       where: { id },
     });
-    if (!tour) {
-      throw new NotFoundException();
-    }
-    return tour;
   }
 
   async update(id: string, dto: TourDto) {

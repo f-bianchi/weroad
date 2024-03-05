@@ -1,4 +1,15 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  NotFoundException,
+  Param,
+  Post,
+  Put,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { AdminGuard, EditorGuard } from 'src/roles/roles.guard';
 import { PaginationRequestDto, PaginationResponseDto } from 'src/utils/paginated-response.dto';
@@ -16,8 +27,12 @@ export class TravelsController {
   }
 
   @Get('travels/:slug')
-  findOneSlug(@Param('slug') slug: string): Promise<Travel> {
-    return this.travelsService.findOnePublic(slug);
+  async findOneSlug(@Param('slug') slug: string): Promise<Travel> {
+    const travel = await this.travelsService.findOnePublic(slug);
+    if (!travel) {
+      throw new NotFoundException();
+    }
+    return travel;
   }
 
   /* ADMIN */
@@ -30,8 +45,12 @@ export class TravelsController {
 
   @Get('admin/travels/:id')
   @UseGuards(AuthGuard, EditorGuard)
-  findOne(@Param('id') id: string): Promise<Travel> {
-    return this.travelsService.findOne(id);
+  async findOne(@Param('id') id: string): Promise<Travel> {
+    const travel = await this.travelsService.findOne(id);
+    if (!travel) {
+      throw new NotFoundException();
+    }
+    return travel;
   }
 
   @UseGuards(AuthGuard, AdminGuard)

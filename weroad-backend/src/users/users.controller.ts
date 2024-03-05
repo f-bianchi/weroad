@@ -2,11 +2,11 @@ import {
   Body,
   Controller,
   Delete,
-  ForbiddenException,
   Get,
   HttpCode,
   HttpException,
   HttpStatus,
+  NotFoundException,
   Param,
   Post,
   Put,
@@ -36,8 +36,12 @@ export class UsersController {
   }
 
   @Get(':id')
-  findById(@Param('id') id: string): Promise<User> {
-    return this.usersService.findOne(id);
+  async findById(@Param('id') id: string): Promise<User> {
+    const user = await this.usersService.findOne(id);
+    if (!user) {
+      throw new NotFoundException();
+    }
+    return user;
   }
 
   @Put(':id')
