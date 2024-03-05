@@ -1,11 +1,5 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Travel } from 'src/travels/entities/travel.entity';
-import {
-  PAGE_SIZE_DEFAULT,
-  PaginationRequestDto,
-  PaginationResponseDto,
-} from 'src/utils/paginated-response.dto';
 import {
   Between,
   FindOptionsOrder,
@@ -14,6 +8,12 @@ import {
   MoreThanOrEqual,
   Repository,
 } from 'typeorm';
+import { Travel } from '../travels/entities/travel.entity';
+import {
+  PAGE_SIZE_DEFAULT,
+  PaginationRequestDto,
+  PaginationResponseDto,
+} from '../utils/paginated-response.dto';
 import { TourFiltersDto } from './dto/tour-filters.dto';
 import { TourDto } from './dto/tour.dto';
 import { Tour } from './entities/tour.entity';

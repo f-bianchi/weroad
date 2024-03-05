@@ -10,9 +10,9 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { AuthGuard } from 'src/auth/auth.guard';
-import { AdminGuard, EditorGuard } from 'src/roles/roles.guard';
-import { PaginationRequestDto, PaginationResponseDto } from 'src/utils/paginated-response.dto';
+import { AuthGuard } from '../auth/auth.guard';
+import { AdminGuard, EditorGuard } from '../roles/roles.guard';
+import { PaginationRequestDto, PaginationResponseDto } from '../utils/paginated-response.dto';
 import { TravelDto } from './dto/travel.dto';
 import { Travel } from './entities/travel.entity';
 import { TravelsService } from './travels.service';

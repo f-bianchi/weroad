@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
-import { Role } from 'src/roles/entities/role.entity';
 import { DeepPartial, In, Repository } from 'typeorm';
+import { Role } from '../roles/entities/role.entity';
 import { UserDto, UserUpdateDto } from './dto/user.dto';
 import { User } from './entities/user.entity';
 

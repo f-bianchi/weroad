@@ -1,3 +1,4 @@
+import { PartialType } from '@nestjs/mapped-types';
 import {
   ArrayNotEmpty,
   IsArray,
@@ -8,8 +9,7 @@ import {
   IsString,
   IsUUID,
 } from 'class-validator';
-import { RoleName } from 'src/roles/entities/role.entity';
-import { PartialType } from '@nestjs/mapped-types';
+import { RoleName } from '../../roles/entities/role.entity';
 
 export class UserDto {
   @IsUUID()

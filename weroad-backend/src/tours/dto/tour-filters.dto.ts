@@ -1,3 +1,4 @@
+import { Type } from 'class-transformer';
 import {
   IsISO8601,
   IsNumber,
@@ -8,9 +9,8 @@ import {
   ValidatorConstraint,
   ValidatorConstraintInterface,
 } from 'class-validator';
-import { PaginationRequestDto } from 'src/utils/paginated-response.dto';
 import { isAfter, isSameDay } from 'date-fns';
-import { Type } from 'class-transformer';
+import { PaginationRequestDto } from '../../utils/paginated-response.dto';
 
 @ValidatorConstraint({ name: 'isSameOrAfter', async: false })
 export class IsSameOrAfterConstraint implements ValidatorConstraintInterface {

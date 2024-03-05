@@ -1,5 +1,5 @@
-import { BaseEntity } from 'src/utils/base.entity';
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity } from '../../utils/base.entity';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 export enum RoleName {
   Editor = 'editor',

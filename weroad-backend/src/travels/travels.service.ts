@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Moods } from 'src/travels/entities/moods.entity';
-import { PaginationRequestDto, PaginationResponseDto } from 'src/utils/paginated-response.dto';
-import { Repository } from 'typeorm';
+import { DeepPartial, Repository } from 'typeorm';
+import { Moods } from '../travels/entities/moods.entity';
+import { PaginationRequestDto, PaginationResponseDto } from '../utils/paginated-response.dto';
 import { TravelDto } from './dto/travel.dto';
 import { Travel } from './entities/travel.entity';
 
@@ -82,7 +82,7 @@ export class TravelsService {
   }
 
   private async saveTravel(dto: TravelDto): Promise<Travel> {
-    const moodsToCreate = { ...dto.moods };
+    const moodsToCreate: DeepPartial<Moods> = { ...dto.moods };
     if (dto.id) {
       const moods = await this.moodsRepository.findOne({
         where: { travel: { id: dto.id } },

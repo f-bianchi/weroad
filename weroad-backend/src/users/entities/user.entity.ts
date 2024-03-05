@@ -1,6 +1,6 @@
-import { Role } from 'src/roles/entities/role.entity';
-import { BaseEntity } from 'src/utils/base.entity';
-import { Entity, Column, PrimaryGeneratedColumn, ManyToMany, JoinTable } from 'typeorm';
+import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Role } from '../../roles/entities/role.entity';
+import { BaseEntity } from '../../utils/base.entity';
 
 @Entity({ name: 'users' })
 export class User extends BaseEntity {

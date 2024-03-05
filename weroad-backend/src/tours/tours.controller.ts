@@ -10,13 +10,13 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { AuthGuard } from 'src/auth/auth.guard';
-import { EditorGuard } from 'src/roles/roles.guard';
-import { PaginationRequestDto, PaginationResponseDto } from 'src/utils/paginated-response.dto';
+import { AuthGuard } from '../auth/auth.guard';
+import { EditorGuard } from '../roles/roles.guard';
+import { PaginationRequestDto, PaginationResponseDto } from '../utils/paginated-response.dto';
+import { TourFiltersDto } from './dto/tour-filters.dto';
 import { TourDto } from './dto/tour.dto';
 import { Tour } from './entities/tour.entity';
 import { ToursService } from './tours.service';
-import { TourFiltersDto } from './dto/tour-filters.dto';
 
 @Controller()
 export class ToursController {

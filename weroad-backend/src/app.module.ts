@@ -10,6 +10,11 @@ import { JwtModule } from '@nestjs/jwt';
 import { RolesModule } from './roles/roles.module';
 import { TravelsModule } from './travels/travels.module';
 import { ToursModule } from './tours/tours.module';
+import { Role } from './roles/entities/role.entity';
+import { User } from './users/entities/user.entity';
+import { Tour } from './tours/entities/tour.entity';
+import { Travel } from './travels/entities/travel.entity';
+import { Moods } from './travels/entities/moods.entity';
 
 @Module({
   imports: [
@@ -35,7 +40,7 @@ import { ToursModule } from './tours/tours.module';
       username: process.env.POSTGRES_USERNAME,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DATABASE,
-      entities: [__dirname + '/../**/*.entity.js'],
+      entities: [Role, User, Tour, Travel, Moods],
       synchronize: true,
     }),
     JwtModule.register({

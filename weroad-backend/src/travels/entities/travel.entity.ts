@@ -1,5 +1,3 @@
-import { Tour } from 'src/tours/entities/tour.entity';
-import { BaseEntity } from 'src/utils/base.entity';
 import {
   BeforeInsert,
   BeforeUpdate,
@@ -10,6 +8,8 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Tour } from '../../tours/entities/tour.entity';
+import { BaseEntity } from '../../utils/base.entity';
 import { Moods } from './moods.entity';
 
 @Entity({ name: 'travels' })

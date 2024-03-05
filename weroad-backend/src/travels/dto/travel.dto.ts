@@ -8,7 +8,7 @@ import {
   IsUUID,
   ValidateNested,
 } from 'class-validator';
-import { MoodsDto } from 'src/travels/dto/moods.dto';
+import { MoodsDto } from '../../travels/dto/moods.dto';
 
 export class TravelDto {
   @IsUUID()

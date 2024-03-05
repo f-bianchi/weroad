@@ -13,12 +13,12 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
-import { AuthGuard } from 'src/auth/auth.guard';
-import { AdminGuard } from 'src/roles/roles.guard';
-import { UserDto, UserUpdateDto } from './dto/user.dto';
-import { UsersService } from './users.service';
-import { User } from './entities/user.entity';
 import { Request } from 'express';
+import { AuthGuard } from '../auth/auth.guard';
+import { AdminGuard } from '../roles/roles.guard';
+import { UserDto, UserUpdateDto } from './dto/user.dto';
+import { User } from './entities/user.entity';
+import { UsersService } from './users.service';
 
 @Controller('admin/users')
 @UseGuards(AuthGuard, AdminGuard)

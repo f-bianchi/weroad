@@ -1,13 +1,13 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
-import { UsersService } from 'src/users/users.service';
-import * as ROLES from 'src/seeder/samples/roles.json';
-import * as USERS from 'src/seeder/samples/users.json';
-import * as TOURS from 'src/seeder/samples/tours.json';
-import * as TRAVELS from 'src/seeder/samples/travels.json';
-import { RolesService } from 'src/roles/roles.service';
-import { TravelsService } from 'src/travels/travels.service';
-import { ToursService } from 'src/tours/tours.service';
-import { UserDto } from 'src/users/dto/user.dto';
+import { RolesService } from '../roles/roles.service';
+import * as ROLES from '../seeder/samples/roles.json';
+import * as TOURS from '../seeder/samples/tours.json';
+import * as TRAVELS from '../seeder/samples/travels.json';
+import * as USERS from '../seeder/samples/users.json';
+import { ToursService } from '../tours/tours.service';
+import { TravelsService } from '../travels/travels.service';
+import { UserDto } from '../users/dto/user.dto';
+import { UsersService } from '../users/users.service';
 
 @Injectable()
 export class SeederService implements OnModuleInit {

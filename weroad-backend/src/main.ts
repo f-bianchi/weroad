@@ -1,7 +1,12 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { LogLevel, Logger, ValidationPipe } from '@nestjs/common';
+import { INestApplication, LogLevel, Logger, ValidationPipe } from '@nestjs/common';
 import { UniqueExceptionFilter } from './unique-exception.filter';
+
+export function setupGlobals(app: INestApplication) {
+  app.useGlobalPipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }));
+  app.useGlobalFilters(new UniqueExceptionFilter());
+}
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -9,8 +14,7 @@ async function bootstrap() {
     cors: true,
   });
 
-  app.useGlobalPipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }));
-  app.useGlobalFilters(new UniqueExceptionFilter());
+  setupGlobals(app);
 
   await app.listen(process.env.PORT);
 
