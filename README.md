@@ -31,12 +31,6 @@ Before starting the backend, make sure to check the variables in the `.env` file
 
 Once started, a seeder service will automatically insert initial data into the database if environment variable `ENABLE_IMPORT_MOCK_DATA` is `true`.
 
-To format the code according to the rules of the `.prettierrc.json` file, in `weroad-backend` folder, run:
-
-```bash
-npm run format
-```
-
 To start run test, in `weroad-backend` folder, run the following command:
 
 ```bash
@@ -59,10 +53,18 @@ Login in admin section with these users:
 | admin@example.com  |  password | admin  |
 | editor@example.com |  password | editor |
 
-To format the code according to the rules of the `.prettierrc.json` file, run:
+For more information on Tailwind UI components, visit https://tailwindui.com/components.
+
+## Lint and format
+
+To format the code according to the rules of the `.prettierrc.json` file, run in the folder of both projects:
 
 ```bash
 npm run format
 ```
 
-For more information on Tailwind UI components, visit https://tailwindui.com/components.
+To find and fix JS problems with `eslint`, run in the folder of both projects:
+
+```bash
+npm run lint
+```
