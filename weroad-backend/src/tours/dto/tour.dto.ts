@@ -1,4 +1,4 @@
-import { IsISO8601, IsNotEmpty, IsNumber, IsOptional, IsUUID } from 'class-validator';
+import { IsISO8601, IsNotEmpty, IsNumber, IsOptional, IsUUID, Max, Min } from 'class-validator';
 import { IsSameOrAfter } from '../../utils/date-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
@@ -25,6 +25,8 @@ export class TourDto {
 
   @IsNumber()
   @ApiProperty()
+  @Max(1000000)
+  @Min(0)
   price: number;
 
   @IsUUID()

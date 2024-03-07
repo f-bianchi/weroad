@@ -106,6 +106,8 @@ const removeTour = async () => {
                 <input
                   type="number"
                   step=".01"
+                  min="1"
+                  max="1000000"
                   name="price"
                   id="price"
                   required
