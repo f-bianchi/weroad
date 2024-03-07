@@ -86,5 +86,10 @@ const handleSubmit = async () => {
         </div>
       </form>
     </div>
+    <p className="mt-10 text-center text-sm text-gray-500">
+      <RouterLink to="/" className="font-medium leading-6 text-rose-600 hover:text-rose-500">
+        Go to home
+      </RouterLink>
+    </p>
   </div>
 </template>

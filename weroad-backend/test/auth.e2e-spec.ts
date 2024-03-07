@@ -4,18 +4,18 @@ import { RoleName } from '../src/roles/entities/role.entity';
 import { moduleFixture } from './jest.setup';
 import { appTest } from './jest.setup';
 
-describe('Auth', () => {
+describe('Auth API', () => {
   let authService: AuthService;
 
   beforeAll(async () => {
     authService = moduleFixture.get<AuthService>(AuthService);
   });
 
-  it('/login (POST) 400 no body', () => {
+  it('should return 400 for missing body on login', () => {
     return request(appTest.getHttpServer()).post('/auth/login').expect(400);
   });
 
-  it('/login (POST) 400 not valid email', () => {
+  it('should return 400 for not valid email on login', () => {
     return request(appTest.getHttpServer())
       .post('/auth/login')
       .send({ email: 'foo', password: 'bar' })
@@ -23,7 +23,7 @@ describe('Auth', () => {
       .expect({ message: ['email must be an email'], statusCode: 400, error: 'Bad Request' });
   });
 
-  it('/login (POST) 401 user not found', () => {
+  it('should return 401 for user not found on login', () => {
     return request(appTest.getHttpServer())
       .post('/auth/login')
       .send({ email: 'foo@example.com', password: 'bar' })
@@ -31,7 +31,7 @@ describe('Auth', () => {
       .expect({ message: 'Bad Credentials', statusCode: 401 });
   });
 
-  it('/login (POST) 401 password not correct', () => {
+  it('should return 401 for incorrect password on login', () => {
     return request(appTest.getHttpServer())
       .post('/auth/login')
       .send({ email: 'admin@example.com', password: 'bar' })
@@ -39,7 +39,7 @@ describe('Auth', () => {
       .expect({ message: 'Bad Credentials', statusCode: 401 });
   });
 
-  it('/login (POST) 200 return access token', (done) => {
+  it('should return 200 with access token on successful login', (done) => {
     request(appTest.getHttpServer())
       .post('/auth/login')
       .send({ email: 'admin@example.com', password: 'password' })
@@ -50,11 +50,11 @@ describe('Auth', () => {
       });
   });
 
-  it('/me (GET) 401 without token', () => {
+  it('should return 401 without token on /me', () => {
     return request(appTest.getHttpServer()).get('/auth/me').expect(401);
   });
 
-  it('/me (GET) 200 return me', async () => {
+  it('should return 200 and user details on /me with token', async () => {
     const user = {
       email: 'admin@example.com',
       id: 'b1fb0518-efce-4684-8477-a59dc09d336a',

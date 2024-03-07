@@ -9,6 +9,7 @@ import {
   ValidateNested,
 } from 'class-validator';
 import { MoodsDto } from '../../travels/dto/moods.dto';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class TravelDto {
   @IsUUID()
@@ -16,22 +17,28 @@ export class TravelDto {
   id?: string;
 
   @IsNotEmpty()
+  @ApiProperty()
   slug: string;
 
   @IsNotEmpty()
+  @ApiProperty()
   name: string;
 
   @IsNotEmpty()
+  @ApiProperty()
   description: string;
 
   @IsBoolean()
+  @ApiProperty()
   isPublic: boolean;
 
   @IsNumber()
+  @ApiProperty()
   numberOfDays: number;
 
   @IsDefined()
   @ValidateNested()
   @Type(() => MoodsDto)
+  @ApiProperty()
   moods: MoodsDto;
 }

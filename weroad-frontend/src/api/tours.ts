@@ -10,8 +10,9 @@ export const getTours = async (
   travelId: string,
   pagination: PaginationRequest,
 ): Promise<PaginationResponse<Tour>> => {
-  const { data } = await axios.get<PaginationResponse<Tour>>(`/admin/travels/${travelId}/tours`, {
+  const { data } = await axios.get<PaginationResponse<Tour>>(`/admin/tours`, {
     params: {
+      travelId,
       page: pagination.page,
       pageSize: pagination.pageSize,
     },

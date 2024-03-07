@@ -18,8 +18,10 @@ import { PaginationRequestDto, PaginationResponseDto } from '../utils/paginated-
 import { TravelDto } from './dto/travel.dto';
 import { Travel } from './entities/travel.entity';
 import { TravelsService } from './travels.service';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller()
+@ApiTags('travels')
 export class TravelsController {
   constructor(private readonly travelsService: TravelsService) {}
 

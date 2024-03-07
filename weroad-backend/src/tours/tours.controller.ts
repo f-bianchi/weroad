@@ -14,12 +14,15 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from '../auth/auth.guard';
 import { EditorGuard } from '../roles/roles.guard';
-import { PaginationRequestDto, PaginationResponseDto } from '../utils/paginated-response.dto';
+import { PaginationResponseDto } from '../utils/paginated-response.dto';
 import { TourFiltersDto } from './dto/tour-filters.dto';
 import { TourDto } from './dto/tour.dto';
 import { Tour } from './entities/tour.entity';
 import { ToursService } from './tours.service';
+import { ToursQueryDto } from './dto/tours-query.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('tours')
 @Controller()
 export class ToursController {
   constructor(private readonly toursService: ToursService) {}
@@ -34,12 +37,9 @@ export class ToursController {
 
   /* ADMIN */
   @UseGuards(AuthGuard, EditorGuard)
-  @Get('admin/travels/:id/tours')
-  findAll(
-    @Param('id') id: string,
-    @Query() queryDto: PaginationRequestDto,
-  ): Promise<PaginationResponseDto<Tour>> {
-    return this.toursService.findAll(id, queryDto);
+  @Get('admin/tours')
+  findAll(@Query() queryDto: ToursQueryDto): Promise<PaginationResponseDto<Tour>> {
+    return this.toursService.findAll(queryDto);
   }
 
   @UseGuards(AuthGuard, EditorGuard)

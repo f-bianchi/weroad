@@ -5,7 +5,8 @@ The backend is developed using Nest.js while the frontend is developed using Vue
 
 ## Prerequisites
 
-Before getting started, make sure you have Docker installed on your system.
+- Node.js version 20.x or higher
+- Before getting started, make sure you have Docker installed on your system.
 
 ## Getting Started
 

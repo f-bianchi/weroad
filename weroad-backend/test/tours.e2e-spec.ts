@@ -4,8 +4,8 @@ import { appTest, tokenEditor } from './jest.setup';
 const TRAVEL_SLUG = 'jordan-360';
 const TRAVEL_ID = 'd408be33-aa6a-4c73-a2c8-58a70ab2ba4d';
 
-describe('Tours', () => {
-  it('/tours (GET) 200 list paginated (sort default startingDate ASC)', async () => {
+describe('Tours API', () => {
+  it('should list tours paginated with default sorting (ASC)', async () => {
     const { body } = await request(appTest.getHttpServer())
       .get(`/travels/${TRAVEL_SLUG}/tours`)
       .query({ page: 1, pageSize: 2 })
@@ -17,7 +17,7 @@ describe('Tours', () => {
     expect(body.total).toBe(3);
   });
 
-  it('/tours (GET) 200 list sorted', async () => {
+  it('should list tours sorted by price in ascending order', async () => {
     const { body } = await request(appTest.getHttpServer())
       .get(`/travels/${TRAVEL_SLUG}/tours`)
       .query({ page: 1, pageSize: 10, sort: 'price', order: 'ASC' })
@@ -29,7 +29,7 @@ describe('Tours', () => {
     expect(body.items[2].price).toBe(2149);
   });
 
-  it('/tours (GET) 200 filter date', async () => {
+  it('should filter tours by date range', async () => {
     const { body } = await request(appTest.getHttpServer())
       .get(`/travels/${TRAVEL_SLUG}/tours`)
       .query({ page: 1, pageSize: 10, startingDate: '2021-11-01', endingDate: '2021-11-10' })
@@ -38,7 +38,7 @@ describe('Tours', () => {
     expect(body.items.length).toBe(1);
   });
 
-  it('/tours (GET) 400 filter date not valid format', async () => {
+  it('should return 400 for invalid date format during filtering', async () => {
     const { body } = await request(appTest.getHttpServer())
       .get(`/travels/${TRAVEL_SLUG}/tours`)
       .query({ page: 1, pageSize: 10, startingDate: '01/10/2021' })
@@ -47,7 +47,7 @@ describe('Tours', () => {
     expect(body.message).toEqual(['startingDate must be a valid ISO 8601 date string']);
   });
 
-  it('/tours (GET) 400 filter date range invalid', async () => {
+  it('should return 400 for invalid date range during filtering', async () => {
     const { body } = await request(appTest.getHttpServer())
       .get(`/travels/${TRAVEL_SLUG}/tours`)
       .query({ page: 1, pageSize: 10, startingDate: '2021-11-01', endingDate: '2021-10-31' })
@@ -56,7 +56,24 @@ describe('Tours', () => {
     expect(body.message).toEqual(['endingDate must be same or after startingDate']);
   });
 
-  it('/tours/id (GET) 200 editor get', async () => {
+  it('should return 400 for missing travelId during listing', async () => {
+    await request(appTest.getHttpServer())
+      .get(`/admin/tours`)
+      .set('Authorization', `Bearer ${tokenEditor}`)
+      .expect(400);
+  });
+
+  it('should allow editor to list tours for a specific travelId', async () => {
+    const { body } = await request(appTest.getHttpServer())
+      .get(`/admin/tours`)
+      .query({ travelId: TRAVEL_ID })
+      .set('Authorization', `Bearer ${tokenEditor}`)
+      .expect(200);
+
+    expect(body.items.length).toBe(3);
+  });
+
+  it('should allow editor to get a specific tour by id', async () => {
     const { body } = await request(appTest.getHttpServer())
       .get(`/admin/tours/2a0edc99-c9fe-4206-8da5-413586667a21`)
       .set('Authorization', `Bearer ${tokenEditor}`)
@@ -65,7 +82,7 @@ describe('Tours', () => {
     expect(body.name).toBe('ITJOR20211101');
   });
 
-  it('/tours (POST) 200 editor create', async () => {
+  it('should allow editor to create a new tour', async () => {
     const newTour = {
       name: 'foo-bar-tour',
       startingDate: '2024-03-01',
@@ -83,7 +100,7 @@ describe('Tours', () => {
     expect(body.travel.slug).toBe(TRAVEL_SLUG);
   });
 
-  it('/tours (POST) 400 date range invalid', async () => {
+  it('should return 400 for invalid date range during tour creation', async () => {
     const newTour = {
       name: 'foo-bar-tour',
       startingDate: '2024-03-05',
@@ -100,7 +117,7 @@ describe('Tours', () => {
     expect(body.message).toEqual(['endingDate must be same or after startingDate']);
   });
 
-  it('/travels (PUT) 403 for editor', async () => {
+  it('should forbid editor from updating a tour', async () => {
     const updateTour = {
       name: 'update-foo-bar',
       startingDate: '2021-11-01',
@@ -119,7 +136,7 @@ describe('Tours', () => {
     expect(body.price).toBe(updateTour.price);
   });
 
-  it('/tours/id (DELETE) 200', () => {
+  it('should allow editor to delete a tour by id', () => {
     return request(appTest.getHttpServer())
       .delete('/admin/tours/2a0edc99-c9fe-4206-8da5-413586667a21')
       .set('Authorization', `Bearer ${tokenEditor}`)

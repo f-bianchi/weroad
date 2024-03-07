@@ -19,8 +19,10 @@ import { AdminGuard } from '../roles/roles.guard';
 import { UserDto, UserUpdateDto } from './dto/user.dto';
 import { User } from './entities/user.entity';
 import { UsersService } from './users.service';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('admin/users')
+@ApiTags('users')
 @UseGuards(AuthGuard, AdminGuard)
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}

@@ -34,7 +34,7 @@ export const store = createStore<State>({
     logout({ commit }) {
       localStorage.removeItem('token');
       commit('setUser', undefined);
-      router.push('/');
+      router.push('/login');
     },
     showNotification({ commit }, notification: Notification) {
       commit('pushNotification', notification);

@@ -6,21 +6,21 @@ import { appTest, moduleFixture, tokenAdmin, tokenEditor } from './jest.setup';
 
 const EDITOR_ID = 'f12462bb-0588-425d-b23e-d36e5792c822';
 
-describe('Users', () => {
+describe('Users API', () => {
   let usersService: UsersService;
 
   beforeAll(async () => {
     usersService = moduleFixture.get<UsersService>(UsersService);
   });
 
-  it('/users (GET) 403 for editor', () => {
+  it('should return 403 for editor on list users', () => {
     return request(appTest.getHttpServer())
       .post('/admin/users')
       .set('Authorization', `Bearer ${tokenEditor}`)
       .expect(403);
   });
 
-  it('/users (GET) 200', async () => {
+  it('should return 200 on list users', async () => {
     const { body } = await request(appTest.getHttpServer())
       .get('/admin/users')
       .set('Authorization', `Bearer ${tokenAdmin}`)
@@ -28,7 +28,7 @@ describe('Users', () => {
     expect(Array.isArray(body)).toBe(true);
   });
 
-  it('/users (POST) 400 role not correct', () => {
+  it('should return 400 for incorrect role on create user', () => {
     return request(appTest.getHttpServer())
       .post('/admin/users')
       .set('Authorization', `Bearer ${tokenAdmin}`)
@@ -36,7 +36,7 @@ describe('Users', () => {
       .expect(400);
   });
 
-  it('/users (POST) 400 email unique', async () => {
+  it('should return 400 for duplicate email on create user', async () => {
     const { body } = await request(appTest.getHttpServer())
       .post('/admin/users')
       .set('Authorization', `Bearer ${tokenAdmin}`)
@@ -45,7 +45,7 @@ describe('Users', () => {
     expect(body.message).toEqual('Key (email)=(admin@example.com) already exists.');
   });
 
-  it('/users (POST) 201 user created with password', async () => {
+  it('should create user with password', async () => {
     const email = 'another-admin@example.com';
     const password = 'foo';
 
@@ -64,7 +64,7 @@ describe('Users', () => {
     expect(isMatch).toBe(true);
   });
 
-  it('/users (GET) 200 get user', async () => {
+  it('should return 200 on get user', async () => {
     const { body } = await request(appTest.getHttpServer())
       .get(`/admin/users/${EDITOR_ID}`)
       .set('Authorization', `Bearer ${tokenAdmin}`)
@@ -74,7 +74,7 @@ describe('Users', () => {
     expect(body.roles[0].name).toEqual(RoleName.Editor);
   });
 
-  it('/users (PUT) update user (with update password)', async () => {
+  it('should update user (with password update)', async () => {
     const email = 'another-email@example.com';
     const password = 'another-foo';
 
@@ -92,7 +92,7 @@ describe('Users', () => {
     expect(isMatch).toBe(true);
   });
 
-  it('/users (DELETE)', async () => {
+  it('should delete user', async () => {
     await request(appTest.getHttpServer())
       .delete(`/admin/users/${EDITOR_ID}`)
       .set('Authorization', `Bearer ${tokenAdmin}`)

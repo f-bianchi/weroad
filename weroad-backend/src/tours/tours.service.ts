@@ -9,14 +9,11 @@ import {
   Repository,
 } from 'typeorm';
 import { Travel } from '../travels/entities/travel.entity';
-import {
-  PAGE_SIZE_DEFAULT,
-  PaginationRequestDto,
-  PaginationResponseDto,
-} from '../utils/paginated-response.dto';
+import { PAGE_SIZE_DEFAULT, PaginationResponseDto } from '../utils/paginated-response.dto';
 import { TourFiltersDto } from './dto/tour-filters.dto';
 import { TourDto } from './dto/tour.dto';
 import { Tour } from './entities/tour.entity';
+import { ToursQueryDto } from './dto/tours-query.dto';
 
 @Injectable()
 export class ToursService {
@@ -58,13 +55,10 @@ export class ToursService {
     return await this.saveTour(dto);
   }
 
-  async findAll(
-    travelId: string,
-    queryDto: PaginationRequestDto,
-  ): Promise<PaginationResponseDto<Tour>> {
+  async findAll(queryDto: ToursQueryDto): Promise<PaginationResponseDto<Tour>> {
     const { page = 1, pageSize = PAGE_SIZE_DEFAULT } = queryDto;
     const [items, total] = await this.toursRepository.findAndCount({
-      where: { travel: { id: travelId } },
+      where: { travel: { id: queryDto.travelId } },
       take: pageSize,
       skip: (page - 1) * pageSize,
     });
