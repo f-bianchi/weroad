@@ -48,6 +48,8 @@ To start run test, in `weroad-backend` folder, run the following command:
 npm t
 ```
 
+To access the OpenAPI documentation, navigate with broswer to the `/api` path.
+
 ### Frontend
 
 To start the frontend, in `weroad-frontend` folder, run the following command:
