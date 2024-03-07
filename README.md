@@ -21,16 +21,26 @@ docker compose up -d
 
 The backend of the project is developed with Nest.js and uses a PostgreSQL database with TypeORM.
 
+Before running the project, make sure to create a `.env` file based on `.env.sample` and customize it according to your environment. Use it as is to connect to Docker database
+
+| Variable Name            | Description                                                       |
+|--------------------------|-------------------------------------------------------------------|
+| `LOG_LEVEL`              | Specifies the logging level for the application.                  |
+| `PORT`                   | Specifies the port number the server should listen on.            |
+| `JWT_SECRET`             | Secret key used for JWT token generation and verification.        |
+| `POSTGRES_HOST`          | Hostname for the PostgreSQL database.                             |
+| `POSTGRES_PORT`          | Port number for the PostgreSQL database.                          |
+| `POSTGRES_USERNAME`      | Username for connecting to the PostgreSQL database.               |
+| `POSTGRES_PASSWORD`      | Password for connecting to the PostgreSQL database.               |
+| `POSTGRES_DATABASE`      | Name of the PostgreSQL database.                                  |
+| `ENABLE_IMPORT_MOCK_DATA`| Indicates whether to enable importing mock data into the database.|
+
 To start the backend, in `weroad-backend` folder, run the following command:
 
 ```bash
 npm i
 npm start
 ```
-
-Before starting the backend, make sure to check the variables in the `.env` file. If you want to change the default variables (eg: connection to a different db), create a `.env.local` file.
-
-Once started, a seeder service will automatically insert initial data into the database if environment variable `ENABLE_IMPORT_MOCK_DATA` is `true`.
 
 To start run test, in `weroad-backend` folder, run the following command:
 
